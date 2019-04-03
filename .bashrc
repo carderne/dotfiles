@@ -143,3 +143,8 @@ alias power='/home/chris/Code/scripts/power.sh'
 LANG="en_US.UTF-8"
 export LANG
 alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+bind '"\C-r": reverse-search-history'
+alias nvim='/home/chris/.local/bin/nvim.appimage'
