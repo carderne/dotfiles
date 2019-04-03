@@ -13,14 +13,14 @@ call plug#begin('~/.config/nvim/plugged')
 
 " various color schemes (neovim default is 'dark'; I like 'slate' with dark background)
 " http://vimcolors.com/
-Plug 'freeo/vim-kalisi'
-Plug 'w0ng/vim-hybrid'
-Plug 'bitterjug/vim-colors-bitterjug'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'crusoexia/vim-monokai'
-Plug 'jacoborus/tender.vim'
-Plug 'pbrisbin/vim-colors-off'
-Plug 'muellan/am-colors'
+" Plug 'freeo/vim-kalisi'
+" Plug 'w0ng/vim-hybrid'
+" Plug 'bitterjug/vim-colors-bitterjug'
+" Plug 'jonathanfilip/vim-lucius'
+" Plug 'crusoexia/vim-monokai'
+" Plug 'jacoborus/tender.vim'
+" Plug 'pbrisbin/vim-colors-off'
+" Plug 'muellan/am-colors'
 Plug 'blueshirts/darcula'
 
 " NERD Tree - tree explorer
@@ -31,7 +31,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " nerdtree-git-plugin - show git status in NERD Tree
 " https://github.com/Xuyuanp/nerdtree-git-plugin
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " vim-airline
 " Enhanced statusline
@@ -42,43 +42,42 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Save/restore session support
 " https://github.com/tpope/vim-obsession
-" tmux users also see: https://github.com/tmux-plugins/tmux-resurrect/blob/master/docs/restoring_vim_and_neovim_sessions.md
 Plug 'tpope/vim-obsession'
 
 " Excellent git wrapper
 " https://github.com/tpope/vim-fugitive
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " Enforce editor settings
 " https://github.com/editorconfig/editorconfig-vim
-Plug 'editorconfig/editorconfig-vim'
+" Plug 'editorconfig/editorconfig-vim'
 
 " Make vim a first class Go development environment
 " https://github.com/fatih/vim-go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " vim-misc
 " https://github.com/xolox/vim-misc
-Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-misc'
 
 " vim-easytags
 " https://github.com/xolox/vim-easytags
-Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-easytags'
 
 " Tagbar
 " https://github.com/majutsushi/tagbar
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 
 " https://github.com/nsf/gocode
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+" Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
 " deoplete (for gocode completion support)
 " https://github.com/Shougo/deoplete.nvim
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " deoplete-go (for gocode completion support)
 " https://github.com/zchee/deoplete-go
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 " Markdown support
 " https://github.com/plasticboy/vim-markdown
@@ -97,7 +96,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " A better grep (source code aware)
 " You must install ack on your machine for the plugin to work
 " sudo apt-get install ack-grep, brew install ack, etc.
-Plug 'mileszs/ack.vim'
+" Plug 'mileszs/ack.vim'
 
 " OMG - insanely awesome fuzzy search and blazing fast grep
 " https://github.com/junegunn/fzf (parent project)
@@ -110,6 +109,28 @@ Plug 'junegunn/fzf.vim'
 " indentline
 " https://github.com/Yggdroot/indentLine
 Plug 'Yggdroot/indentLine'
+
+" syntax check
+Plug 'w0rp/ale'
+" Autocomplete
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" Formater
+Plug 'Chiel92/vim-autoformat'
+
+Plug 'ambv/black'
+
+Plug 'scrooloose/nerdcommenter'
 
 " -------------------------------------
 " Add plugins to &runtimepath
@@ -130,22 +151,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Initial settings
 " =====================================
 
-" Relax file compatibility restriction with original vi
-" (not necessary to set with neovim, but useful for vim)
-set nocompatible
-
 " Disable beep / flash
 set vb t_vb=
 
 " Set tabs and indents (for go)
-set ts=8
-set shiftwidth=8
-set ai sw=8
+set tabstop=4
+set shiftwidth=4
+set ai sw=4
 " replace tab with spaces
-"set expandtab
+set expandtab
 " allow cursor to move to beginning of tab
 " will interfere with soft line wrapping (set nolist)
-set list lcs=tab:\ \ 
+set list lcs=tab:\ \
 
 " highlight matches when searching
 " Use C-l to clear (see key map section)
@@ -153,7 +170,14 @@ set hlsearch
 
 " Line numbering
 " Toggle set to ';n' in key map section
-set nonumber
+" set nonumber
+
+:set number relativenumber
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
 
 " Disable line wrapping
 " Toggle set to ';w' in key map section
@@ -172,6 +196,16 @@ filetype indent on
 
 " syntax highlighting
 syntax on
+syntax enable
+
+set mouse=a
+set noshowmode
+set noshowmatch
+set nolazyredraw
+
+" Search configuration
+set ignorecase                    " ignore case when searching
+set smartcase                     " turn on smartcase
 
 " scroll a bit horizontally when at the end of the line
 set sidescroll=6
@@ -182,6 +216,33 @@ set hidden
 set confirm
 set autowriteall
 set wildmenu wildmode=full
+
+" NCM2
+augroup NCM2
+  autocmd!
+  " enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  " :help Ncm2PopupOpen for more information
+  set completeopt=noinsert,menuone,noselect
+  " When the <Enter> key is pressed while the popup menu is visible, it only
+  " hides the menu. Use this mapping to close the menu and also start a new line.
+  " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+augroup END
+
+
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Ale
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
+
+" vim-autoformat
+noremap <F3> :Autoformat<CR>
 
 " markdown
 " https://github.com/plasticboy/vim-markdown
@@ -195,7 +256,7 @@ set splitright
 set splitbelow
 
 " Use Ag (the silver searcher) instack of Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
+" let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " =====================================
 " Theme color scheme settings
@@ -219,13 +280,13 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " zellner
 " -------------------------------------
 
-function! Light()
-    echom "set bg=light"
-    set bg=light
-    colorscheme off
-    set list
-endfunction
-
+" function! Light()
+"     echom "set bg=light"
+"     set bg=light
+"     colorscheme off
+"     set list
+" endfunction
+"
 function! Dark()
     echom "set bg=dark"
     set bg=dark
@@ -233,14 +294,14 @@ function! Dark()
     "darcula fix to hide the indents:
     set nolist
 endfunction
-
-function! ToggleLightDark()
-  if &bg ==# "light"
-    call Dark()
-  else
-    call Light()
-  endif
-endfunction
+"
+" function! ToggleLightDark()
+"   if &bg ==# "light"
+"     call Dark()
+"   else
+"     call Light()
+"   endif
+" endfunction
 
 " adjustments
 "hi Statement ctermfg=1 guifg=#60BB60
@@ -254,6 +315,15 @@ endfunction
 set guioptions-=r
 "
 set guifont=Menlo\ Regular:h16
+
+" True Color Support if it's avaiable in terminal
+if has("termguicolors")
+    set termguicolors
+endif
+
+if has("gui_running")
+    set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
+endif
 
 " =====================================
 " key map
@@ -284,10 +354,10 @@ inoremap ;; <Esc>
 nnoremap <silent> <Space> :NERDTreeToggle<CR>
 
 " toggle tagbar
-nnoremap <silent> <leader>tb :TagbarToggle<CR>
+" nnoremap <silent> <leader>tb :TagbarToggle<CR>
 
 " toggle line numbers
-nnoremap <silent> <leader>n :set number! number?<CR>
+nnoremap <silent> <leader>n :set nonumber! relativenumber!<CR>
 
 " toggle line wrap
 nnoremap <silent> <leader>w :set wrap! wrap?<CR>
@@ -333,10 +403,10 @@ nnoremap <leader>vq :VimuxCloseRunner<CR>
 nnoremap <leader>vx: VimuxInterruptRunner<CR>
 
 " improved keyboard navigation
-nnoremap <leader>h <C-w>h
-nnoremap <leader>j <C-w>j
-nnoremap <leader>k <C-w>k
-nnoremap <leader>l <C-w>l
+" nnoremap <leader>h <C-w>h
+" nnoremap <leader>j <C-w>j
+" nnoremap <leader>k <C-w>k
+" nnoremap <leader>l <C-w>l
 
 " improved keyboard support for navigation (especially terminal)
 " https://neovim.io/doc/user/nvim_terminal_emulator.html
@@ -363,36 +433,44 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
 
 " toggle colors to optimize based on light or dark background
-nnoremap <leader>c :call ToggleLightDark()<CR>
+" nnoremap <leader>c :call ToggleLightDark()<CR>
 
 " =====================================
 " Go
 " https://github.com/fatih/vim-go
 " =====================================
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-
-" go-def is automatically by default to plain "gd" (no leader required)
-au FileType go nnoremap <Leader>gd <Plug>(go-def)
-au FileType go nmap <Leader>gp <Plug>(go-def-pop)
-
-au FileType go nnoremap <Leader>gv <Plug>(go-doc-vertical)
-" or open in a browser...
-au FileType go nnoremap <Leader>gb <Plug>(go-doc-browser)
-
-au FileType go nnoremap <Leader>s <Plug>(go-implements)
-au FileType go nnoremap <Leader>i <Plug>(go-info)
-au FileType go nnoremap <Leader>gl <Plug>(go-metalinter)
-au FileType go nnoremap <Leader>gc <Plug>(go-callers)
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+"
+" " go-def is automatically by default to plain "gd" (no leader required)
+" au FileType go nnoremap <Leader>gd <Plug>(go-def)
+" au FileType go nmap <Leader>gp <Plug>(go-def-pop)
+"
+" au FileType go nnoremap <Leader>gv <Plug>(go-doc-vertical)
+" " or open in a browser...
+" au FileType go nnoremap <Leader>gb <Plug>(go-doc-browser)
+"
+" au FileType go nnoremap <Leader>s <Plug>(go-implements)
+" au FileType go nnoremap <Leader>i <Plug>(go-info)
+" au FileType go nnoremap <Leader>gl <Plug>(go-metalinter)
+" au FileType go nnoremap <Leader>gc <Plug>(go-callers)
 
 " =====================================
 " vim-airline status
 " configure: https://github.com/vim-airline/vim-airline#user-content-extensible-pipeline
 " =====================================
+
+" Airline
+let g:airline_left_sep  = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
+
 let g:airline_theme='monochrome'
 " show buffers (if only one tab)
 "let g:airline#extensions#tabline#enabled = 1
@@ -405,22 +483,22 @@ function! ToggleHiddenAll()
         set noruler
         set laststatus=0
         set noshowcmd
-	TagbarClose
-	NERDTreeClose
+        TagbarClose
+        NERDTreeClose
         set foldcolumn=10
 
     else
-	set foldcolumn=0
+        set foldcolumn=0
         let s:hidden_all = 0
         set showmode
         set ruler
-        set laststatus=2 
+        set laststatus=2
         set showcmd
-	NERDTree
-	" NERDTree takes focus, so move focus back to the right
-	" (note: "l" is lowercase L (mapped to moving right)
-	wincmd l
-	TagbarOpen
+        NERDTree
+        " NERDTree takes focus, so move focus back to the right
+        " (note: "l" is lowercase L (mapped to moving right)
+        wincmd l
+        TagbarOpen
 
     endif
 endfunction
@@ -447,7 +525,7 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 " =====================================
 
 " http://stackoverflow.com/questions/9001337/vim-split-bar-styling
-set fillchars+=vert:\ 
+set fillchars+=vert:\
 
 " http://vim.wikia.com/wiki/Highlight_current_line
 " http://stackoverflow.com/questions/8750792/vim-highlight-the-whole-current-line
