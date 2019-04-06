@@ -1,26 +1,10 @@
-" Plug (vim-plug) - plugin manager
-" https://github.com/junegunn/vim-plug
-" Basically: after adding a plug, just remember to run 'PlugInstall'
-" This is best with neovim!
-" https://neovim.io/
 " http://nerditya.com/code/guide-to-neovim/
-" Other helpful links:
 " http://learnvimscriptthehardway.stevelosh.com/
 " http://andrewradev.com/2011/08/06/making-vim-pretty-with-custom-colors/
 " =====================================
 call plug#begin('~/.config/nvim/plugged')
 " -------------------------------------
 
-" various color schemes (neovim default is 'dark'; I like 'slate' with dark background)
-" http://vimcolors.com/
-" Plug 'freeo/vim-kalisi'
-" Plug 'w0ng/vim-hybrid'
-" Plug 'bitterjug/vim-colors-bitterjug'
-" Plug 'jonathanfilip/vim-lucius'
-" Plug 'crusoexia/vim-monokai'
-" Plug 'jacoborus/tender.vim'
-" Plug 'pbrisbin/vim-colors-off'
-" Plug 'muellan/am-colors'
 Plug 'blueshirts/darcula'
 
 " NERD Tree - tree explorer
@@ -29,12 +13,10 @@ Plug 'blueshirts/darcula'
 " (loaded on first invocation of the command)
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" nerdtree-git-plugin - show git status in NERD Tree
 " https://github.com/Xuyuanp/nerdtree-git-plugin
-" Plug 'Xuyuanp/nerdtree-git-plugin'
+" https://github.com/tpope/vim-fugitive
 
 " vim-airline
-" Enhanced statusline
 " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
 " https://github.com/vim-airline/vim-airline-themes
@@ -43,41 +25,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Save/restore session support
 " https://github.com/tpope/vim-obsession
 Plug 'tpope/vim-obsession'
-
-" Excellent git wrapper
-" https://github.com/tpope/vim-fugitive
-" Plug 'tpope/vim-fugitive'
-
-" Enforce editor settings
-" https://github.com/editorconfig/editorconfig-vim
-" Plug 'editorconfig/editorconfig-vim'
-
-" Make vim a first class Go development environment
-" https://github.com/fatih/vim-go
-" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-
-" vim-misc
-" https://github.com/xolox/vim-misc
-" Plug 'xolox/vim-misc'
-
-" vim-easytags
-" https://github.com/xolox/vim-easytags
-" Plug 'xolox/vim-easytags'
-
-" Tagbar
-" https://github.com/majutsushi/tagbar
-" Plug 'majutsushi/tagbar'
-
-" https://github.com/nsf/gocode
-" Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-
-" deoplete (for gocode completion support)
-" https://github.com/Shougo/deoplete.nvim
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" deoplete-go (for gocode completion support)
-" https://github.com/zchee/deoplete-go
-" Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 " Markdown support
 " https://github.com/plasticboy/vim-markdown
@@ -89,14 +36,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'benmills/vimux'
 
 " Fuzzy file, buffer, mru, tag, etc finder
-" ctrlp.vim
 " https://github.com/ctrlpvim/ctrlp.vim
 Plug 'ctrlpvim/ctrlp.vim'
-
-" A better grep (source code aware)
-" You must install ack on your machine for the plugin to work
-" sudo apt-get install ack-grep, brew install ack, etc.
-" Plug 'mileszs/ack.vim'
 
 " OMG - insanely awesome fuzzy search and blazing fast grep
 " https://github.com/junegunn/fzf (parent project)
@@ -127,9 +68,7 @@ set completeopt=noinsert,menuone,noselect
 
 " Formater
 Plug 'Chiel92/vim-autoformat'
-
 Plug 'ambv/black'
-
 Plug 'scrooloose/nerdcommenter'
 
 " -------------------------------------
@@ -162,22 +101,22 @@ set ai sw=4
 set expandtab
 " allow cursor to move to beginning of tab
 " will interfere with soft line wrapping (set nolist)
-set list lcs=tab:\ \
+" set list lcs=tab:\ \
+
+" Language-specific tab size
+autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " highlight matches when searching
 " Use C-l to clear (see key map section)
 set hlsearch
 
 " Line numbering
-" Toggle set to ';n' in key map section
-" set nonumber
-
 :set number relativenumber
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+" :augroup numbertoggle
+" :  autocmd!
+" :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+" :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" :augroup END
 
 " Disable line wrapping
 " Toggle set to ';w' in key map section
@@ -206,9 +145,24 @@ set nolazyredraw
 " Search configuration
 set ignorecase                    " ignore case when searching
 set smartcase                     " turn on smartcase
+set gdefault
+
+" Search and Replace
+nmap <leader>h :%s//g<Left><Left>
 
 " scroll a bit horizontally when at the end of the line
 set sidescroll=6
+
+" Tell Vim which characters to show for expanded TABs,
+" trailing whitespace, and end-of-lines. VERY useful!
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+set list                " Show problematic characters.
+
+" Also highlight all tabs and trailing whitespace characters.
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$\|\t/
 
 " Make it easier to work with buffers
 " http://vim.wikia.com/wiki/Easier_buffer_switching
@@ -245,72 +199,18 @@ let g:ale_linters = {'python': ['flake8']}
 noremap <F3> :Autoformat<CR>
 
 " markdown
-" https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled = 1
-
-" auto switch current working directory to current buffer (not recommended)
-"autocmd BufEnter * :cd %:p:h
 
 " open new split panes to right and below (as you probably expect)
 set splitright
 set splitbelow
 
-" Use Ag (the silver searcher) instack of Ack
-" let g:ackprg = 'ag --nogroup --nocolor --column'
-
 " =====================================
 " Theme color scheme settings
 " =====================================
-" blue
-" darkblue
-" default
-" delek
-" desert
-" elflord
-" evening
-" koehler
-" morning
-" murphy
-" pablo
-" peachpuff
-" ron
-" shine
-" slate
-" torte
-" zellner
-" -------------------------------------
-
-" function! Light()
-"     echom "set bg=light"
-"     set bg=light
-"     colorscheme off
-"     set list
-" endfunction
-"
-function! Dark()
-    echom "set bg=dark"
-    set bg=dark
-    colorscheme darcula
-    "darcula fix to hide the indents:
-    set nolist
-endfunction
-"
-" function! ToggleLightDark()
-"   if &bg ==# "light"
-"     call Dark()
-"   else
-"     call Light()
-"   endif
-" endfunction
-
-" adjustments
-"hi Statement ctermfg=1 guifg=#60BB60
-"hi Constant ctermfg=4
-
-" for macvim
-"
-" Disable scrollbar in gui
-" set scrolloff=9999
+set bg=dark
+colorscheme darcula
+set nolist
 " hide right scrollbar
 set guioptions-=r
 "
@@ -332,8 +232,11 @@ endif
 " http://stackoverflow.com/questions/22849386/difference-between-nnoremap-and-inoremap#answer-22849425
 " =====================================
 
+" change command-line mode key
+nnoremap ; :
+
 " change the leader key from "\" to ";" ("," is also popular)
-let mapleader=";"
+let mapleader=","
 
 " Shortcut to edit THIS configuration file: (e)dit (c)onfiguration
 nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
@@ -342,19 +245,10 @@ nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :source $MYVIMRC<CR>
 
 " use ;; for escape
-" http://vim.wikia.com/wiki/Avoid_the_escape_key
 inoremap ;; <Esc>
 
 " Toggle NERDTree
-" Can't get <C-Space> by itself to work, so this works as Ctrl - space - space
-" https://github.com/neovim/neovim/issues/3101
-" http://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim#answer-24550772
-"nnoremap <C-Space> :NERDTreeToggle<CR>
-"nmap <C-@> <C-Space>
 nnoremap <silent> <Space> :NERDTreeToggle<CR>
-
-" toggle tagbar
-" nnoremap <silent> <leader>tb :TagbarToggle<CR>
 
 " toggle line numbers
 nnoremap <silent> <leader>n :set nonumber! relativenumber!<CR>
@@ -402,12 +296,6 @@ nnoremap <leader>vl :VimuxRunLastCommand<CR>
 nnoremap <leader>vq :VimuxCloseRunner<CR>
 nnoremap <leader>vx: VimuxInterruptRunner<CR>
 
-" improved keyboard navigation
-" nnoremap <leader>h <C-w>h
-" nnoremap <leader>j <C-w>j
-" nnoremap <leader>k <C-w>k
-" nnoremap <leader>l <C-w>l
-
 " improved keyboard support for navigation (especially terminal)
 " https://neovim.io/doc/user/nvim_terminal_emulator.html
 tnoremap <Esc> <C-\><C-n>
@@ -431,33 +319,6 @@ tnoremap <C-x> <C-\><C-n><C-w>q
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
-
-" toggle colors to optimize based on light or dark background
-" nnoremap <leader>c :call ToggleLightDark()<CR>
-
-" =====================================
-" Go
-" https://github.com/fatih/vim-go
-" =====================================
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
-"
-" " go-def is automatically by default to plain "gd" (no leader required)
-" au FileType go nnoremap <Leader>gd <Plug>(go-def)
-" au FileType go nmap <Leader>gp <Plug>(go-def-pop)
-"
-" au FileType go nnoremap <Leader>gv <Plug>(go-doc-vertical)
-" " or open in a browser...
-" au FileType go nnoremap <Leader>gb <Plug>(go-doc-browser)
-"
-" au FileType go nnoremap <Leader>s <Plug>(go-implements)
-" au FileType go nnoremap <Leader>i <Plug>(go-info)
-" au FileType go nnoremap <Leader>gl <Plug>(go-metalinter)
-" au FileType go nnoremap <Leader>gc <Plug>(go-callers)
 
 " =====================================
 " vim-airline status
@@ -503,22 +364,7 @@ function! ToggleHiddenAll()
     endif
 endfunction
 
-nnoremap <silent> <leader>h :call ToggleHiddenAll()<CR>
-
-" =====================================
-" Custom find
-" =====================================
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" nnoremap <silent> <leader>h :call ToggleHiddenAll()<CR>
 
 " =====================================
 " Custom styling
@@ -535,23 +381,8 @@ autocmd WinEnter * setlocal cursorline
 autocmd BufLeave * setlocal nocursorline
 autocmd WinLeave * setlocal nocursorline
 
-" tagbar autopen
-"autocmd VimEnter * nested :call tagbar#autoopen(1)
-"autocmd FileType * nested :call tagbar#autoopen(0)
-"autocmd BufEnter * nested :call tagbar#autoopen(0)
-
-" =====================================
-" auto completion
-" =====================================
-set completeopt+=noinsert
-set completeopt+=noselect
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#go#use_cache = 1
-
-
 " =====================================
 " Init
 " =====================================
-silent call Dark()
 autocmd VimEnter * wincmd p
 
