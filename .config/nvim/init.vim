@@ -5,7 +5,7 @@
 call plug#begin('~/.config/nvim/plugged')
 " -------------------------------------
 
-Plug 'blueshirts/darcula'
+Plug 'danilo-augusto/vim-afterglow'
 
 " NERD Tree - tree explorer
 " https://github.com/scrooloose/nerdtree
@@ -31,6 +31,9 @@ Plug 'tpope/vim-obsession'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" https://github.com/shime/vim-livedown
+Plug 'shime/vim-livedown'
+
 " Nice interaction with tmux
 " https://github.com/benmills/vimux
 Plug 'benmills/vimux'
@@ -42,7 +45,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " OMG - insanely awesome fuzzy search and blazing fast grep
 " https://github.com/junegunn/fzf (parent project)
 " https://github.com/junegunn/fzf.vim (more extensive wrapper)
-" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2#.rkhrm332m
+"https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2#.rkhrm332m
 " To update: :PlugUpdate fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -59,6 +62,9 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
+
+" Surround things with quotes/parentheses etc
+Plug 'tpope/vim-surround'
 
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -99,12 +105,10 @@ set shiftwidth=4
 set ai sw=4
 " replace tab with spaces
 set expandtab
-" allow cursor to move to beginning of tab
-" will interfere with soft line wrapping (set nolist)
-" set list lcs=tab:\ \
 
 " Language-specific tab size
 autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype yaml,yml setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " highlight matches when searching
 " Use C-l to clear (see key map section)
@@ -112,15 +116,10 @@ set hlsearch
 
 " Line numbering
 :set number relativenumber
-" :augroup numbertoggle
-" :  autocmd!
-" :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-" :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-" :augroup END
 
 " Disable line wrapping
 " Toggle set to ';w' in key map section
-set nowrap
+" set nowrap
 
 " enable line and column display
 set ruler
@@ -146,9 +145,6 @@ set nolazyredraw
 set ignorecase                    " ignore case when searching
 set smartcase                     " turn on smartcase
 set gdefault
-
-" Search and Replace
-nmap <leader>h :%s//g<Left><Left>
 
 " scroll a bit horizontally when at the end of the line
 set sidescroll=6
@@ -183,9 +179,8 @@ augroup NCM2
   " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 augroup END
 
-
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Ale
 let g:ale_lint_on_enter = 0
@@ -195,11 +190,10 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {'python': ['flake8']}
 
-" vim-autoformat
-noremap <F3> :Autoformat<CR>
-
 " markdown
 let g:vim_markdown_folding_disabled = 1
+nmap gm :LivedownToggle<CR>
+let g:livedown_browser = "google-chrome-stable"
 
 " open new split panes to right and below (as you probably expect)
 set splitright
@@ -208,44 +202,40 @@ set splitbelow
 " =====================================
 " Theme color scheme settings
 " =====================================
-set bg=dark
-colorscheme darcula
-set nolist
-" hide right scrollbar
-set guioptions-=r
-"
+colorscheme afterglow
+let g:afterglow_blackout=0
+let g:afterglow_italic_comments=1
+set guioptions-=r  " hide right scrollbar
 set guifont=Menlo\ Regular:h16
 
-" True Color Support if it's avaiable in terminal
-if has("termguicolors")
-    set termguicolors
-endif
-
-if has("gui_running")
-    set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
-endif
+autocmd BufEnter * setlocal cursorline
+autocmd WinEnter * setlocal cursorline
+autocmd BufLeave * setlocal nocursorline
+autocmd WinLeave * setlocal nocursorline
+autocmd BufEnter * setlocal cursorcolumn
+autocmd WinEnter * setlocal cursorcolumn
+autocmd BufLeave * setlocal nocursorcolumn
+autocmd WinLeave * setlocal nocursorcolumn
 
 " =====================================
 " key map
-" Understand mapping modes:
-" http://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping#answer-3776182
-" http://stackoverflow.com/questions/22849386/difference-between-nnoremap-and-inoremap#answer-22849425
 " =====================================
-
-" change command-line mode key
-nnoremap ; :
 
 " change the leader key from "\" to ";" ("," is also popular)
 let mapleader=","
+
+" Search and Replace
+nmap <leader>h :%s//<Left>
+
+" vim-autoformat
+noremap <leader>af :Autoformat<CR>
+noremap <leader>bl :Black<CR>
 
 " Shortcut to edit THIS configuration file: (e)dit (c)onfiguration
 nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
 
 " Shortcut to source (reload) THIS configuration file after editing it: (s)ource (c)onfiguraiton
 nnoremap <silent> <leader>sc :source $MYVIMRC<CR>
-
-" use ;; for escape
-inoremap ;; <Esc>
 
 " Toggle NERDTree
 nnoremap <silent> <Space> :NERDTreeToggle<CR>
@@ -274,8 +264,6 @@ nnoremap <silent> <leader>bd :bd<CR>
 " kill buffer
 nnoremap <silent> <leader>bk :bd!<CR>
 
-" list buffers
-nnoremap <silent> <leader>bl :ls<CR>
 " list and select buffer
 nnoremap <silent> <leader>bg :ls<CR>:buffer<Space>
 
@@ -286,7 +274,6 @@ nnoremap <silent> <leader>bh :new<CR>
 nnoremap <silent> <leader>bv :vnew<CR>
 
 " redraw screan and clear search highlighted items
-"http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting#answer-25569434
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 
 " vimux
@@ -320,11 +307,6 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
 
-" =====================================
-" vim-airline status
-" configure: https://github.com/vim-airline/vim-airline#user-content-extensible-pipeline
-" =====================================
-
 " Airline
 let g:airline_left_sep  = ''
 let g:airline_right_sep = ''
@@ -333,8 +315,6 @@ let airline#extensions#ale#error_symbol = 'E:'
 let airline#extensions#ale#warning_symbol = 'W:'
 
 let g:airline_theme='monochrome'
-" show buffers (if only one tab)
-"let g:airline#extensions#tabline#enabled = 1
 
 let s:hidden_all = 0
 function! ToggleHiddenAll()
@@ -363,23 +343,6 @@ function! ToggleHiddenAll()
 
     endif
 endfunction
-
-" nnoremap <silent> <leader>h :call ToggleHiddenAll()<CR>
-
-" =====================================
-" Custom styling
-" =====================================
-
-" http://stackoverflow.com/questions/9001337/vim-split-bar-styling
-set fillchars+=vert:\
-
-" http://vim.wikia.com/wiki/Highlight_current_line
-" http://stackoverflow.com/questions/8750792/vim-highlight-the-whole-current-line
-" http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events
-autocmd BufEnter * setlocal cursorline
-autocmd WinEnter * setlocal cursorline
-autocmd BufLeave * setlocal nocursorline
-autocmd WinLeave * setlocal nocursorline
 
 " =====================================
 " Init
