@@ -77,6 +77,13 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'ambv/black'
 Plug 'scrooloose/nerdcommenter'
 
+" Org-mode
+Plug 'vim-scripts/utl.vim'
+Plug 'jceb/vim-orgmode'
+
+" Scratch
+Plug 'mtth/scratch.vim'
+
 " -------------------------------------
 " Add plugins to &runtimepath
 call plug#end()
@@ -193,11 +200,18 @@ let g:ale_linters = {'python': ['flake8']}
 " markdown
 let g:vim_markdown_folding_disabled = 1
 nmap gm :LivedownToggle<CR>
-let g:livedown_browser = "google-chrome-stable"
+" let g:livedown_browser = "google-chrome-stable"
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 " open new split panes to right and below (as you probably expect)
 set splitright
 set splitbelow
+
+" =====================================
+" org-mode settings
+" =====================================
+let g:org_agenda_files = ['~/Notes/*.org']
 
 " =====================================
 " Theme color scheme settings
@@ -223,6 +237,7 @@ autocmd WinLeave * setlocal nocursorcolumn
 
 " change the leader key from "\" to ";" ("," is also popular)
 let mapleader=","
+let maplocalleader="-"
 
 " Search and Replace
 nmap <leader>h :%s//<Left>

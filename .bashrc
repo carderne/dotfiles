@@ -3,13 +3,9 @@
 # for examples
 
 # Open tmux
-# If not running interactively, do not do anything
-#[[ $- != *i* ]] && return
-#[[ -z "$TMUX" ]] && exec tmux
-
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  tmux a -t default || exec tmux new -s default && exit;
-fi
+#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  #tmux a -t default || exec tmux new -s default && exit;
+#fi
 
 # If not running interactively, don't do anything
 case $- in
@@ -127,26 +123,31 @@ fi
 
 PATH=$PATH:~/.local/bin
 
+# Remove Downloadsdirectory if it appears
+rm -rf ~/Downloads/ || true
+
 # Install Ruby Gems to ~/gems
-export GEM_HOME=$HOME/gems
-export PATH=$HOME/gems/bin:$PATH
+export GEM_HOME=$HOME/.gems
+export PATH=$HOME/.gems/bin:$PATH
 
 # Virtualenvwrapper
 export WORKON_HOME=$HOME/.envs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /home/chris/.local/bin/virtualenvwrapper.sh
 
-# Custom aliases
-alias ..='cd ..'
-alias bt='/home/chris/Code/scripts/fix-bt-audio.sh'
-alias power='/home/chris/Code/scripts/power.sh'
-LANG="en_US.UTF-8"
-export LANG
-alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
-
+# Fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Custom aliases
+alias ..='cd ..'
+alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
 bind '"\C-r": reverse-search-history'
-alias nvim='/home/chris/.local/bin/nvim.appimage'
 alias o='xdg-open'
 alias co='echo "In Bash, use ctrl-w to delete the last word, and ctrl-u to delete the content from current cursor back to the start of the line. Use alt-b and alt-f to move by word, ctrl-a to move cursor to beginning of line, ctrl-e to move cursor to end of line, ctrl-k to kill to the end of the line, ctrl-l to clear the screen. See man readline for all the default keybindings in Bash. There are a lot. For example alt-. cycles through previous arguments, and alt-* expands a glob."'
+alias dropbox='dropbox.py'
+alias smux='/home/chris/Code/scripts/tmux-side.sh'
+alias ptex='pdflatex --synctex=1'
+#alias power='sudo cpupower frequency-set --governor performance'
+alias power='sudo echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias powercheck='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias jup='python -m jupyter notebook ~/Code'
