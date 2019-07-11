@@ -57,10 +57,14 @@ hide_edge_borders smart
 bindsym $mod+Return exec /usr/bin/gnome-terminal
 
 # start a web browser
-bindsym $mod+Shift+Return exec /usr/bin/sensible-browser
+#bindsym $mod+Shift+Return exec /usr/bin/sensible-browser
+bindsym $mod+Shift+Return exec /usr/bin/firefox
+
+# Take a screenshot
+bindsym --release $mod+p exec /home/chris/Code/scripts/screenshot.sh
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # rofi app and window launchers
 bindsym $mod+space exec rofi -show drun -theme regolith-theme
@@ -176,8 +180,9 @@ bindsym $mod+c exec gnome-control-center
 bindsym $mod+w exec gnome-control-center wifi
 bindsym $mod+b exec gnome-control-center bluetooth
 bindsym $mod+d exec gnome-control-center display
-bindsym $mod+n exec gnome-control-center network
-bindsym $mod+p exec gnome-control-center power
+#bindsym $mod+n exec gnome-control-center network
+bindsym $mod+n exec nautilus
+#bindsym $mod+p exec gnome-control-center power
 bindsym $mod+s exec gnome-control-center sound
 
 # resize window (you can also use the mouse for that)
@@ -197,11 +202,11 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Disable titlebar
-new_window pixel 1
-new_float pixel 1
+new_window pixel 5
+new_float pixel 5
 
 # Gaps (i3-gaps)
-gaps inner 5
+gaps inner 0
 gaps outer 0
 
 # Only enable gaps on a workspace when there is at least one container
@@ -222,6 +227,7 @@ focus_follows_mouse no
 
 # Configure the bar
 bar {
+  #mode invisible
   font pango:Source Code Pro Medium 13, FontAwesome 13
   separator_symbol " "
   status_command i3blocks
@@ -249,4 +255,4 @@ exec --no-startup-id compton -f --config /etc/xdg/compton.conf
 exec --no-startup-id /usr/bin/regolith-ftue.sh
 
 # Hide the mouse pointer if unused for a duration
-exec --no-startup-id /usr/bin/unclutter -b
+#exec --no-startup-id /usr/bin/unclutter -b
