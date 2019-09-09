@@ -1,5 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-
 # Open tmux
 terminal=$(ps -o 'cmd=' -p $(ps -o 'ppid=' -p $$) | sed 's/.*\///')
 if [ "$terminal" == "gnome-terminal-server" ]; then
@@ -36,11 +34,17 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+# disable the default virtualenv prompt change
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+function virtualenv_info {
+    [[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} " | awk '{print substr($0,0,3)" "}'
 }
 
-PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[0;31m\]\]$(parse_git_branch)\[\033[00m\]$ '
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /' | awk '{print substr($0,0,3)" "}'
+}
+
+PS1='\[\e[38;5;250m\]$(virtualenv_info)\[\e[38;5;173m\]$(parse_git_branch)\[\e[1;34m\]\w\[\e[m\] '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -56,10 +60,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -73,7 +73,7 @@ fi
 
 PATH=$PATH:~/.local/bin
 
-# Remove Downloadsdirectory if it appears
+# Remove Downloads directory if it appears
 rm -rf ~/Downloads/ || true
 
 # Install Ruby Gems to ~/gems
@@ -88,12 +88,15 @@ source /home/chris/.local/bin/virtualenvwrapper.sh
 # Fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Don't echo ^C
+stty -ctlecho
+
 # Custom aliases
 alias ..='cd ..'
 alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
 bind '"\C-r": reverse-search-history'
 alias o='xdg-open'
-alias co='echo "In Bash, use ctrl-w to delete the last word, and ctrl-u to delete the content from current cursor back to the start of the line. Use alt-b and alt-f to move by word, ctrl-a to move cursor to beginning of line, ctrl-e to move cursor to end of line, ctrl-k to kill to the end of the line, ctrl-l to clear the screen. See man readline for all the default keybindings in Bash. There are a lot. For example alt-. cycles through previous arguments, and alt-* expands a glob."'
+#alias co='echo "In Bash, use ctrl-w to delete the last word, and ctrl-u to delete the content from current cursor back to the start of the line. Use alt-b and alt-f to move by word, ctrl-a to move cursor to beginning of line, ctrl-e to move cursor to end of line, ctrl-k to kill to the end of the line, ctrl-l to clear the screen. See man readline for all the default keybindings in Bash. There are a lot. For example alt-. cycles through previous arguments, and alt-* expands a glob."'
 alias dropbox='dropbox.py'
 alias smux='/home/chris/Code/scripts/tmux-side.sh'
 alias ptex='pdflatex --synctex=1'
