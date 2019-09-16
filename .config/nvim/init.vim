@@ -1,7 +1,3 @@
-" http://nerditya.com/code/guide-to-neovim/
-" http://learnvimscriptthehardway.stevelosh.com/
-" http://andrewradev.com/2011/08/06/making-vim-pretty-with-custom-colors/
-" =====================================
 call plug#begin('~/.config/nvim/plugged')
 
 " Theme
@@ -64,9 +60,6 @@ call plug#end()
 
 " Set python interpreter
 let g:python3_host_prog = '/usr/bin/python3'
-
-" Spell check
-autocmd FileType latex,tex,md,markdown setlocal spell spelllang=en_gb
 
 " Disable beep / flash
 set vb t_vb=
@@ -163,6 +156,17 @@ let g:afterglow_blackout=0
 let g:afterglow_italic_comments=1
 set guioptions-=r  " hide right scrollbar
 set guifont=Menlo\ Regular:h16
+
+" Spell check
+autocmd FileType latex,tex,md,markdown setlocal spell spelllang=en_gb
+hi clear SpellBad
+hi clear SpellCap
+hi clear SpellLocal
+hi clear SpellRare
+hi SpellBad cterm=underline ctermfg=161
+hi SpellCap cterm=underline ctermfg=161
+hi SpellLocal cterm=underline ctermfg=161
+hi SpellRare cterm=underline ctermfg=161
 
 autocmd BufEnter * setlocal cursorline
 autocmd WinEnter * setlocal cursorline
