@@ -1,0 +1,31 @@
+! This is the Regolith root-level Xresources file.
+
+! -- Styles - Colors
+#include "/etc/regolith/styles/color-nord"
+
+! -- Styles - Fonts
+#include "/etc/regolith/styles/typeface-sourcecodepro"
+
+! -- Applications
+#include "/etc/regolith/styles/i3-wm"
+#include "/etc/regolith/styles/rofi"
+
+gnome.gtk.theme:        Yaru
+gnome.wm.theme:         Yaru
+gnome.icon.theme:       Yaru
+
+i3xrocks.label.color:       color_base00
+i3xrocks.value.color:       color_base0
+i3xrocks.value.font:        typeface_bar_glyph
+i3xrocks.critical.color:    color_red
+i3xrocks.error.color:       color_orange
+i3xrocks.warning:           color_yellow
+i3xrocks.nominal:           color_base0
+i3xrocks.date.format:       + %d/%m %I:%M %p
+
+i3blocks.label.color:  Solarized_base01
+i3blocks.value.color:  Solarized_base0
+i3blocks.value.font: Source Code Pro Medium 13
+i3blocks.cpu.glyph: 
+i3blocks.battery.glyph: 
+i3blocks.time.glyph: 

@@ -13,7 +13,7 @@ set $i3xrocks_config /etc/regolith/i3xrocks/config
 # compton config file
 set $compton_config /etc/regolith/compton/config
 
-# path to terminal. Override this to specify a custom terminal.
+# path to terminal. Override this to specify a custom terminal
 set $terminal_path /usr/bin/gnome-terminal
 
 # Color values are defined in ~/.Xresources-regolith
@@ -234,11 +234,11 @@ mode "Resize Mode" {
 bindsym $mod+r mode "Resize Mode"
 
 # Disable titlebar
-new_window pixel 1
-new_float pixel 1
+default_border pixel 1
+default_floating_border pixel 1
 
 # Gaps (i3-gaps)
-gaps inner 5
+gaps inner 0
 gaps outer 0
 
 # Only enable gaps on a workspace when there is at least one container
@@ -267,7 +267,6 @@ set_from_resource $urgent.color.background i3-wm.client.urgent.color.background 
 set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
 set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
 set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
-
 
 # Window Border color
 # class                 border                             background                         text                               indicator                          child_border

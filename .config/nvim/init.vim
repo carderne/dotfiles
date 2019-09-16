@@ -135,7 +135,6 @@ let g:ale_linters = {'python': ['flake8']}
 " markdown
 let g:vim_markdown_folding_disabled = 1
 nmap gm :LivedownToggle<CR>
-" let g:livedown_browser = "google-chrome-stable"
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
