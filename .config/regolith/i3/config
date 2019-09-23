@@ -11,18 +11,17 @@ set $alt Mod1
 set $i3xrocks_config /home/chris/.config/regolith/i3xrocks/config
 
 # compton config file
-set $compton_config /etc/regolith/compton/config
+set $compton_config /home/chris/.config/regolith/compton/config
 
 # path to terminal. Override this to specify a custom terminal
 set $terminal_path /usr/bin/gnome-terminal
 
-# Color values are defined in ~/.Xresources-regolith
 # These are the labels which define each i3 workspace.
 set $ws1 1: ter
 set $ws2 2: web
 set $ws3 3: doc
 set $ws4 4: mus
-set $ws5 5
+set $ws5 5: com
 set $ws6 6
 set $ws7 7
 set $ws8 8
@@ -204,36 +203,32 @@ gaps outer 0
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
 
-set_from_resource $focused.color.border i3-wm.client.focused.color.border "#002b36"
-set_from_resource $focused.color.background i3-wm.client.focused.color.background "#586e75"
-set_from_resource $focused.color.text i3-wm.client.focused.color.text "#fdf6e3"
-set_from_resource $focused.color.indicator i3-wm.client.focused.color.indicator "#268bd2"
-set_from_resource $focused.color.child_border i3-wm.client.focused.color.child_border
+set $focused.color.border "#002b36"
+set $focused.color.background "#586e75"
+set $focused.color.text "#fdf6e3"
+set $focused.color.indicator "#268bd2"
 
-set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.color.border "#002b36"
-set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#073642"
-set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
-set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#073642"
-set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border 
+set $focused_inactive.color.border "#002b36"
+set $focused_inactive.color.background "#073642"
+set $focused_inactive.color.text "#839496"
+set $focused_inactive.color.indicator "#073642"
 
-set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
-set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#073642"
-set_from_resource $unfocused.color.text i3-wm.client.unfocused.color.text "#839496"
-set_from_resource $unfocused.color.indicator i3-wm.client.unfocused.color.indicator "#073642"
-set_from_resource $unfocused.color.child_border i3-wm.client.unfocused.color.child_border
+set $unfocused.color.border "#002b36"
+set $unfocused.color.background "#073642"
+set $unfocused.color.text "#839496"
+set $unfocused.color.indicator "#073642"
 
-set_from_resource $urgent.color.border i3-wm.client.urgent.color.border "#002b36"
-set_from_resource $urgent.color.background i3-wm.client.urgent.color.background "#dc322f"
-set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
-set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
-set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
+set $urgent.color.border "#002b36"
+set $urgent.color.background "#dc322f"
+set $urgent.color.text "#fdf6e3"
+set $urgent.color.indicator "#002b36"
 
 # Window Border color
-# class                 border                             background                         text                               indicator                          child_border
-client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
-client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator  $focused_inactive.color.child_border
-client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator         $unfocused.color.child_border
-client.urgent           $urgent.color.border               $urgent.color.background           $urgent.color.text                 $urgent.color.indicator            $urgent.color.child_border
+# class                 border                             background                         text                               indicator
+client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator
+client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator
+client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator
+client.urgent           $urgent.color.border               $urgent.color.background           $urgent.color.text                 $urgent.color.indicator
 
 # Enable popup during fullscreen
 popup_during_fullscreen smart
@@ -241,31 +236,29 @@ popup_during_fullscreen smart
 # window focus follows your mouse movements as the mouse crosses window borders
 focus_follows_mouse no
 
-set_from_resource $i3-wm.bar.background.color i3-wm.bar.background.color "#002b36"
-set_from_resource $i3-wm.bar.statusline.color i3-wm.bar.statusline.color "#93a1a1"
-set_from_resource $i3-wm.bar.separator.color i3-wm.bar.separator.color "#268bd2"
+set $i3-wm.bar.background.color "#002b36"
+set $i3-wm.bar.statusline.color "#93a1a1"
+set $i3-wm.bar.separator.color "#268bd2"
 
-set_from_resource $i3-wm.bar.workspace.focused.border.color i3-wm.bar.workspace.focused.border.color "#073642"
-set_from_resource $i3-wm.bar.workspace.focused.background.color i3-wm.bar.workspace.focused.background.color "#073642"
-set_from_resource $i3-wm.bar.workspace.focused.text.color i3-wm.bar.workspace.focused.text.color "#eee8d5"
+set $i3-wm.bar.workspace.focused.border.color "#073642"
+set $i3-wm.bar.workspace.focused.background.color "#073642"
+set $i3-wm.bar.workspace.focused.text.color "#eee8d5"
 
-set_from_resource $i3-wm.bar.workspace.active.border.color i3-wm.bar.workspace.active.border.color "#073642"
-set_from_resource $i3-wm.bar.workspace.active.background.color i3-wm.bar.workspace.active.background.color "#073642"
-set_from_resource $i3-wm.bar.workspace.active.text.color i3-wm.bar.workspace.active.text.color "#586e75"
+set $i3-wm.bar.workspace.active.border.color "#073642"
+set $i3-wm.bar.workspace.active.background.color "#073642"
+set $i3-wm.bar.workspace.active.text.color "#586e75"
 
-set_from_resource $i3-wm.bar.workspace.inactive.border.color i3-wm.bar.workspace.inactive.border.color "#002b36"
-set_from_resource $i3-wm.bar.workspace.inactive.background.color i3-wm.bar.workspace.inactive.background.color "#002b36"
-set_from_resource $i3-wm.bar.workspace.inactive.text.color i3-wm.bar.workspace.inactive.text.color "#586e75"
+set $i3-wm.bar.workspace.inactive.border.color "#002b36"
+set $i3-wm.bar.workspace.inactive.background.color "#002b36"
+set $i3-wm.bar.workspace.inactive.text.color "#586e75"
 
-set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.urgent.border.color "#dc322f"
-set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#dc322f"
-set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
-
-set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
+set $i3-wm.bar.workspace.urgent.border.color "#dc322f"
+set $i3-wm.bar.workspace.urgent.background.color "#dc322f"
+set $i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
 
 # Configure the bar
 bar {
-  font $i3-wm.bar.font
+  font "pango:Source Code Pro Medium 13, FontAwesome 13"
   separator_symbol " "
   status_command i3xrocks -c $i3xrocks_config
   tray_output none

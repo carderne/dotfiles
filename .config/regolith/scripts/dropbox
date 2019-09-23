@@ -1,17 +1,23 @@
-OUTPUT=`dropbox status | head -1`
-TEXT=""
+OUTPUT=`/home/chris/.local/bin/dropbox.py status | head -1`
+
+LABEL_COLOR="#7B8394"
+VALUE_COLOR="#D8DEE9"
+VALUE_FONT="Source Code Pro Medium 12"
 
 if echo $OUTPUT | grep -q '^Up to date' ; then
-    COLOR="#00FF00"
+    COLOR=$VALUE_COLOR
+    TEXT="up"
 else
     if echo $OUTPUT | grep -q '^Dropbox isn' ; then
         COLOR="#FF0000"
+        TEXT=" no"
     else
         COLOR="#007EE5"
+        TEXT=" ?"
     fi
 fi
 
-echo "<span foreground=\"$COLOR\">$TEXT</span>"
+echo "<span color=\"${LABEL_COLOR}\"> </span><span font_desc=\"${VALUE_FONT}\" color=\"${COLOR}\">$TEXT</span>"
 
 case $BLOCK_BUTTON in
   1) notify-send "Dropbox" "`dropbox status`" -t 1000 ;;

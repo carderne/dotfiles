@@ -1,30 +1,40 @@
 # i3xrocks config file
 
 # Global properties
-command=/usr/share/i3xrocks/$BLOCK_NAME
 separator_block_width=40
 markup=pango
-color=xresource:i3xrocks.value.color
-label_color=xresource:i3xrocks.label.color
+color=#D8DEE9
+label_color=#7B8394
+
 
 # Wifi
-[wifi2]
+[wifi]
+command=/home/chris/.config/regolith/scripts/wifi
 #instance=wlp3s0 Replace with your wifi device if you need
 interval=5
 
 [dropbox]
 #label=
-command=/home/chris/.config/regolith/i3xrocks/dropbox
+command=/home/chris/.config/regolith/scripts/dropbox
 interval=5
 
 # CPU usage
 [cpu_usage]
+command=/home/chris/.config/regolith/scripts/cpu_usage
 interval=5
-min_width=100%
+#min_width=100%
 #separator=false
 
+[volume]
+instance=Master
+#instance=PCM
+command=/home/chris/.config/regolith/scripts/volume
+interval=5
+signal=10
+
 # Battery indicator
-[battery2]
+[battery]
+command=/home/chris/.config/regolith/scripts/battery
 interval=30
 #display_time_left=true
 percent_color=true
@@ -32,4 +42,5 @@ percent_color=true
 
 # Date Time
 [time]
+command=/home/chris/.config/regolith/scripts/time
 interval=60
