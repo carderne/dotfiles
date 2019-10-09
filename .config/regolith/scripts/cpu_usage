@@ -44,12 +44,12 @@ $cpu_usage eq -1 and die 'Can\'t find CPU information';
 # Get color values
 my $label_color = "#7B8394";
 my $value_color = "#D8DEE9";
-my $value_font = "Source Code Pro Medium 13";
+my $value_font = "Source Code Pro Medium 12";
 my $value_icon = $ENV{'icon'} || "";
 my $memory = qx{/home/chris/.config/regolith/scripts/memory};
 
 # Print short_text, full_text
-printf "<span color='%s'>%s</span><span font_desc='%s' color='%s'>%2d%% %.1fG</span>\n", $label_color, $value_icon, $value_font, $value_color, $cpu_usage, $memory;
+printf "<span color='%s'>%s</span><span font_desc='%s' color='%s'>%2d%% %s</span>\n", $label_color, $value_icon, $value_font, $value_color, $cpu_usage, $memory;
 #printf "<span font_desc='%s' color='%s'>%2d%%</span>\n", $value_font, $value_color, $cpu_usage, $memory;
 
 
