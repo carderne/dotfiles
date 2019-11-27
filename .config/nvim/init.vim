@@ -227,10 +227,10 @@ nnoremap <leader>vx :VimuxInterruptRunner<CR>
 nnoremap <leader>vz :VimuxZoomRunner<CR>
 
 " Resizing (same between vim/tmux)
-noremap <C-w>k :resize +5<CR>
-noremap <C-w>j :resize -5<CR>
-noremap <C-w>h :vertical:resize -5<CR>
-noremap <C-w>l :vertical:resize +5<CR>
+noremap <C-w>k :resize +15<CR>
+noremap <C-w>j :resize -15<CR>
+noremap <C-w>h :vertical:resize -15<CR>
+noremap <C-w>l :vertical:resize +15<CR>
 
 " Start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif

@@ -287,4 +287,4 @@ exec --no-startup-id compton -f --config $compton_config
 exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
 
 # Dropbox
-exec --no-startup-id dropbox start
+exec --no-startup-id /home/chris/.local/bin/dropbox.py start
