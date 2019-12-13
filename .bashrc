@@ -69,6 +69,9 @@ source /home/chris/.local/bin/virtualenvwrapper.sh
 # Don't echo ^C
 stty -ctlecho
 
+# Set any vi variant as editor
+EDITOR=vi
+
 # Custom aliases
 alias ..='cd ..'
 alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
@@ -84,3 +87,4 @@ alias jup='python -m jupyter notebook'
 alias sshaws='ssh ec2-3-93-220-46.compute-1.amazonaws.com'
 alias rgp='rg -tpy'
 alias python='python3'
+alias c='calc'

@@ -1,32 +1,26 @@
-# i3 config file (v4) for Regolith Desktop Environment
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
+### --- Main config --- ###
 # This defines which key super maps to on your keyboard.
 # Alt key is Mod1, and Windows key is Mod4
 set $mod Mod4
 set $alt Mod1
-
 # i3xrocks config file
 set $i3xrocks_config /home/chris/.config/regolith/i3xrocks/config
-
 # compton config file
 set $compton_config /home/chris/.config/regolith/compton/config
-
 # path to terminal. Override this to specify a custom terminal
 set $terminal_path /usr/bin/gnome-terminal -e tmux
 
-# These are the labels which define each i3 workspace.
-set $ws1 1: ter
-set $ws2 2: web
-set $ws3 3: doc
-set $ws4 4: mus
-set $ws5 5: com
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
 
+### --- Rofi --- ###
+# rofi app and window launchers
+set $rofiTheme /home/chris/.config/regolith/rofi/regolith-theme.rasi
+bindsym $mod+space exec rofi -show drun -theme $rofiTheme
+bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
+bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
+bindsym $mod+s exec xdg-open "$(rg --files --follow | rofi -threads 0 -width 100 -dmenu -i -p 'find' -theme $rofiTheme)"
+
+
+### --- Main shortcuts --- ###
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -44,17 +38,45 @@ bindsym $mod+Shift+Return exec /usr/bin/firefox
 # Take a screenshot
 bindsym --release $mod+p exec /home/chris/Code/scripts/screenshot.sh
 
+# Switch audio output
+bindsym $mod+a exec /home/chris/.config/regolith/scripts/switch-audio.sh internal
+bindsym $mod+Shift+a exec /home/chris/.config/regolith/scripts/switch-audio.sh wifi
+
 # kill focused window
 bindsym $mod+q kill
 
-set $rofiTheme /home/chris/.config/regolith/rofi/regolith-theme.rasi
+# reload the configuration file
+bindsym $mod+Shift+c reload
 
-# rofi app and window launchers
-bindsym $mod+space exec rofi -show drun -theme $rofiTheme
-bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
-bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
-bindsym $mod+s exec xdg-open "$(rg --files --follow | rofi -threads 0 -width 100 -dmenu -i -p 'find' -theme $rofiTheme)"
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
 
+# Logout of session
+bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
+
+# Reboot computer
+bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
+
+# Power off computer
+bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
+
+# lock the screen
+bindsym $mod+Escape exec gnome-screensaver-command --lock
+
+# put the system to sleep
+bindsym $mod+Shift+s exec systemctl suspend
+
+# shortcuts for common system configuration tasks
+bindsym $mod+c exec gnome-control-center
+bindsym $mod+w exec gnome-control-center wifi
+bindsym $mod+b exec gnome-control-center bluetooth
+#bindsym $mod+d exec gnome-control-center display
+#bindsym $mod+n exec gnome-control-center network
+#bindsym $mod+p exec gnome-control-center power
+#bindsym $mod+s exec gnome-control-center sound
+
+
+### --- Navigation --- ###
 # change focus
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -96,6 +118,19 @@ bindsym $mod+Shift+t focus mode_toggle
 # toggle tabbed mode
 bindsym $mod+t layout toggle tabbed splith splitv
 
+
+### --- Workspaces --- ###
+# These are the labels which define each i3 workspace.
+set $ws1 1: ter
+set $ws2 2: web
+set $ws3 3: doc
+set $ws4 4: mus
+set $ws5 5: com
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+
 # move to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -133,36 +168,8 @@ bindsym $mod+$alt+7 move container to workspace $ws7; workspace $ws7; workspace 
 bindsym $mod+$alt+8 move container to workspace $ws8; workspace $ws8; workspace $ws8
 bindsym $mod+$alt+9 move container to workspace $ws9; workspace $ws9; workspace $ws9
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# Logout of session
-bindsym $mod+Shift+e exec /usr/bin/gnome-session-quit --logout
-
-# Reboot computer
-bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
-
-# Power off computer
-bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
-
-# lock the screen
-bindsym $mod+Escape exec gnome-screensaver-command --lock
-
-# put the system to sleep
-bindsym $mod+Shift+s exec systemctl suspend
-
-# shortcuts for common system configuration tasks
-bindsym $mod+c exec gnome-control-center
-bindsym $mod+w exec gnome-control-center wifi
-bindsym $mod+b exec gnome-control-center bluetooth
-#bindsym $mod+d exec gnome-control-center display
-#bindsym $mod+n exec gnome-control-center network
-#bindsym $mod+p exec gnome-control-center power
-#bindsym $mod+s exec gnome-control-center sound
-
+### --- Resize --- ###
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
 # These bindings trigger as soon as you enter the resize mode
@@ -193,6 +200,8 @@ mode "Resize Mode" {
 }
 bindsym $mod+r mode "Resize Mode"
 
+
+### --- Aesthetics --- ###
 # Disable titlebar
 default_border none
 default_floating_border none
@@ -257,7 +266,8 @@ set $i3-wm.bar.workspace.urgent.border.color "#dc322f"
 set $i3-wm.bar.workspace.urgent.background.color "#dc322f"
 set $i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
 
-# Configure the bar
+
+### --- Bar --- ###
 bar {
     font "pango:Source Code Pro Medium 13, FontAwesome 13"
         separator_symbol " "
@@ -278,8 +288,8 @@ bar {
         }
 }
 
-# Run programs when i3 starts
 
+### --- Startup --- ###
 # Start the composite manager
 exec --no-startup-id compton -f --config $compton_config
 
