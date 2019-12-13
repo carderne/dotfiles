@@ -23,15 +23,20 @@ shopt -s checkwinsize
 
 # disable the default virtualenv prompt change
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-function virtualenv_info {
-    [[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} " | awk '{print substr($0,0,3)" "}'
+venv() {
+    if [[ $VIRTUAL_ENV == *"scratch"* ]]; then
+        echo ""
+    else
+        [[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} " | awk '{print substr($0,0,3)" "}'
+    fi
 }
 
-parse_git_branch() {
+
+branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /' | awk '{print substr($0,0,3)" "}'
 }
 
-PS1='\[\e[38;5;250m\]$(virtualenv_info)\[\e[38;5;173m\]$(parse_git_branch)\[\e[1;34m\]\w\[\e[m\] '
+PS1='\[\e[38;5;250m\]$(venv)\[\e[38;5;173m\]$(branch)\[\e[1;34m\]\w\[\e[m\] '
 
 alias ls='ls --color=auto'
 alias ll='ls -alF'
@@ -62,6 +67,7 @@ export PATH=$HOME/.gems/bin:$PATH
 export WORKON_HOME=$HOME/.envs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /home/chris/.local/bin/virtualenvwrapper.sh
+workon scratch
 
 # Fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
