@@ -298,3 +298,6 @@ exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
 
 # Dropbox
 exec --no-startup-id /home/chris/.local/bin/dropbox.py start
+
+# Redshift
+exec_always --no-startup-id /usr/bin/redshift -l 41:2 -t 5700:3500 -g 0.8

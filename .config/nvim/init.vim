@@ -28,6 +28,9 @@ Plug 'Yggdroot/indentLine'
 " syntax check
 Plug 'dense-analysis/ale'
 
+" Git diff and stuff
+Plug 'airblade/vim-gitgutter'
+
 " Autocomplete
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
@@ -57,6 +60,9 @@ call plug#end()
 " =====================================
 " Initial settings
 " =====================================
+
+" Reduced update time for async stuff
+set updatetime=100
 
 " Set python interpreter
 let g:python3_host_prog = '/usr/bin/python3'
