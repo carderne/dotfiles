@@ -93,5 +93,8 @@ alias jup='python -m jupyter notebook'
 alias sshaws='ssh ec2-3-93-220-46.compute-1.amazonaws.com'
 alias rgp='rg -tpy'
 alias python='python3'
-alias c='calc'
 alias wifi='nmcli -c yes dev wifi | head -n 10'
+alias space='du -h | sort -hr | less'
+alias c=/home/$USER/.local/bin/calculon
+alias grep=rg
+source /home/chris/.config/broot/launcher/bash/br
