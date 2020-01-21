@@ -35,6 +35,9 @@ bindsym $mod+Return exec $terminal_path
 # start a web browser
 bindsym $mod+Shift+Return exec /usr/bin/firefox
 
+# open a Files window
+bindsym $mod+Ctrl+Return exec nautilus --new-window /home/chris/Temp/
+
 # Take a screenshot
 bindsym --release $mod+p exec /home/chris/Code/scripts/screenshot.sh
 
@@ -296,8 +299,5 @@ exec --no-startup-id compton -f --config $compton_config
 # Refresh wallpaper on screen resolution change
 exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
 
-# Dropbox
-exec --no-startup-id /home/chris/.local/bin/dropbox.py start
-
 # Redshift
-exec_always --no-startup-id /usr/bin/redshift -l 41:2 -t 5700:3500 -g 0.8
+exec_always --no-startup-id /usr/bin/redshift -l 41:2 -t 6500:3500
