@@ -14,8 +14,6 @@ Plug 'plasticboy/vim-markdown'
 " https://github.com/shime/vim-livedown
 Plug 'shime/vim-livedown'
 
-" https://github.com/benmills/vimux
-Plug 'benmills/vimux'
 " https://github.com/christoomey/vim-tmux-navigator
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -40,26 +38,19 @@ Plug 'ncm2/ncm2-jedi'
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 
-" Surround things with quotes/parentheses etc
-Plug 'tpope/vim-surround'
-
 " Formater
 Plug 'Chiel92/vim-autoformat'
 Plug 'ambv/black'
 Plug 'scrooloose/nerdcommenter'
-
-" Org-mode
-Plug 'vim-scripts/utl.vim'
-Plug 'jceb/vim-orgmode'
-
-" Scratch
-Plug 'mtth/scratch.vim'
 
 call plug#end()
 
 " =====================================
 " Initial settings
 " =====================================
+
+" Disable swap file warnings
+set shortmess+=A
 
 " Reduced update time for async stuff
 set updatetime=100
@@ -147,11 +138,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 " open new split panes to right and below (as you probably expect)
 set splitright
 set splitbelow
-
-" =====================================
-" org-mode settings
-" =====================================
-let g:org_agenda_files = ['~/Notes/*.org']
 
 " =====================================
 " Theme color scheme settings
