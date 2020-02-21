@@ -67,7 +67,6 @@ export PATH=$HOME/.gems/bin:$PATH
 export WORKON_HOME=$HOME/.envs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /home/chris/.local/bin/virtualenvwrapper.sh
-workon scratch
 
 # Fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -97,4 +96,5 @@ alias wifi='nmcli -c yes dev wifi | head -n 10'
 alias space='du -h | sort -hr | less'
 alias c=/home/$USER/.local/bin/calculon
 alias grep=rg
+alias caff=/home/chris/Code/scripts/caffeine.sh
 source /home/chris/.config/broot/launcher/bash/br

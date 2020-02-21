@@ -39,7 +39,7 @@ bindsym $mod+Shift+Return exec /usr/bin/firefox
 bindsym $mod+Ctrl+Return exec nautilus --new-window /home/chris/Temp/
 
 # Take a screenshot
-bindsym --release $mod+p exec /home/chris/Code/scripts/screenshot.sh
+bindsym $mod+p --release exec /home/chris/.config/regolith/scripts/screenshot.sh
 
 # Switch audio output
 bindsym $mod+a exec /home/chris/.config/regolith/scripts/switch-audio.sh internal
