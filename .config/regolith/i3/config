@@ -124,13 +124,13 @@ bindsym $mod+t layout toggle tabbed splith splitv
 
 ### --- Workspaces --- ###
 # These are the labels which define each i3 workspace.
-set $ws1 1: ter
-set $ws2 2: web
-set $ws3 3: doc
-set $ws4 4: mus
-set $ws5 5: com
-set $ws6 6
-set $ws7 7
+set $ws1 1: 1
+set $ws2 2: 2
+set $ws3 3: 3
+set $ws4 4: 4
+set $ws5 5: 5
+set $ws6 6: 6
+set $ws7 7: 7
 set $ws8 8
 set $ws9 9
 

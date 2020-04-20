@@ -77,6 +77,9 @@ stty -ctlecho
 # Set any vi variant as editor
 EDITOR=vi
 
+# Enable recursive *'ing
+shopt -s globstar
+
 # Custom aliases
 alias ..='cd ..'
 alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
@@ -93,6 +96,7 @@ alias sshaws='ssh ec2-3-93-220-46.compute-1.amazonaws.com'
 alias rgp='rg -tpy'
 alias python='python3'
 alias wifi='nmcli -c yes dev wifi | head -n 10'
+alias up='nmcli con up id'
 alias space='du -h | sort -hr | less'
 alias c=/home/$USER/.local/bin/calculon
 alias grep=rg
