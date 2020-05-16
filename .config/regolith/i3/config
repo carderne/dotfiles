@@ -296,6 +296,9 @@ bar {
 # Start the composite manager
 exec --no-startup-id compton -f --config $compton_config
 
+# alternating-layout
+exec --no-startup-id /usr/bin/python3 /home/chris/.config/regolith/i3-alternating-layout/alternating_layouts.py
+
 # Refresh wallpaper on screen resolution change
 exec --no-startup-id /usr/bin/xeventbind resolution /usr/bin/wallpaper-refresh
 
