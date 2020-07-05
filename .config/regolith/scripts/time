@@ -1,7 +1,0 @@
-#!/bin/bash
-DATE_FORMAT="+ %d/%m %H:%M %p"
-LABEL_COLOR="#7B8394"
-VALUE_COLOR="#D8DEE9"
-VALUE_FONT="Source Code Pro Medium 12"
-[[ -z "$icon" ]] && VALUE_ICON="" || VALUE_ICON=$icon
-echo "<span color=\"${LABEL_COLOR}\" font=\"FontAwesome\">$VALUE_ICON</span><span font_desc=\"${VALUE_FONT}\" color=\"${VALUE_COLOR}\">$(date "$DATE_FORMAT")</span>"

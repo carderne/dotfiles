@@ -1,47 +1,34 @@
 call plug#begin('~/.config/nvim/plugged')
 
-" Theme
-Plug 'danilo-augusto/vim-afterglow'
-
 " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
-" https://github.com/vim-airline/vim-airline-themes
-Plug 'vim-airline/vim-airline-themes'
-
-" https://github.com/plasticboy/vim-markdown
-Plug 'plasticboy/vim-markdown'
-
-" https://github.com/shime/vim-livedown
-Plug 'shime/vim-livedown'
-
-" https://github.com/christoomey/vim-tmux-navigator
-Plug 'christoomey/vim-tmux-navigator'
-
-" https://github.com/ctrlpvim/ctrlp.vim
-Plug 'ctrlpvim/ctrlp.vim'
 
 " https://github.com/Yggdroot/indentLine
 Plug 'Yggdroot/indentLine'
 
-" syntax check
-Plug 'dense-analysis/ale'
+" Color schemes
+" https://github.com/ayu-theme/ayu-vim  # not enough contrast
+" https://github.com/rakr/vim-one
+" https://github.com/morhetz/gruvbox
+Plug 'morhetz/gruvbox'
+" https://github.com/sonph/onehalf
 
-" Git diff and stuff
-Plug 'airblade/vim-gitgutter'
+" https://github.com/junegunn/fzf.vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Autocomplete
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
+ Plug 'ncm2/ncm2'
+ Plug 'roxma/nvim-yarp'
+ Plug 'ncm2/ncm2-bufword'
+ Plug 'ncm2/ncm2-path'
+ Plug 'ncm2/ncm2-jedi'
+" Could try Kite as well: https://github.com/kiteco/vim-plugin
 
-" Formater
+" Formatter
 Plug 'Chiel92/vim-autoformat'
-Plug 'ambv/black'
-Plug 'scrooloose/nerdcommenter'
+Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
+Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
@@ -56,7 +43,9 @@ set shortmess+=A
 set updatetime=100
 
 " Set python interpreter
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/home/chris/.envs/nvim/bin/python3'
+let g:python_host_prog = '/home/chris/.envs/nvim/bin/python'
+let g:black_virtualenv = '/home/chris/.envs/nvim/'
 
 " Disable beep / flash
 set vb t_vb=
@@ -76,7 +65,7 @@ autocmd Filetype yaml,yml setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=
 set hlsearch
 
 " Line numbering
-:set number relativenumber
+set number relativenumber
 
 " enable line and column display
 set ruler
@@ -113,27 +102,23 @@ if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 set list
+
 " Also highlight all tabs and trailing whitespace characters.
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$\|\t/
 
 " ncm2
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Ale
-nmap <silent> <C-n> <Plug>(ale_previous_wrap)
-nmap <silent> <C-m> <Plug>(ale_next_wrap)
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_linters = {'python': ['flake8']}
-
-" markdown
-let g:vim_markdown_folding_disabled = 1
-nmap gm :LivedownToggle<CR>
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
+ autocmd BufEnter * call ncm2#enable_for_buffer()
+ set completeopt=noinsert,menuone,noselect
+ set shortmess+=c
+ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+ " make it fast
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+" Use new fuzzy based matches
+let g:ncm2#matcher = 'substrfuzzy'
 
 " open new split panes to right and below (as you probably expect)
 set splitright
@@ -142,11 +127,10 @@ set splitbelow
 " =====================================
 " Theme color scheme settings
 " =====================================
-colorscheme afterglow
-let g:afterglow_blackout=0
-let g:afterglow_italic_comments=1
-set guioptions-=r  " hide right scrollbar
-set guifont=Menlo\ Regular:h16
+set termguicolors
+"let ayucolor="light"
+colorscheme gruvbox
+set background=light
 
 " Spell check
 autocmd FileType latex,tex,md,markdown setlocal spell spelllang=en_gb
@@ -211,12 +195,11 @@ nnoremap <silent> <leader>bv :vnew<CR>
 "nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 nnoremap <leader>l :nohlsearch<CR><C-L>
 
-" vimux
-nnoremap <leader>vc :VimuxPromptCommand<CR>
-nnoremap <leader>vl :VimuxRunLastCommand<CR>
-nnoremap <leader>vq :VimuxCloseRunner<CR>
-nnoremap <leader>vx :VimuxInterruptRunner<CR>
-nnoremap <leader>vz :VimuxZoomRunner<CR>
+" Moving between splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Resizing (same between vim/tmux)
 noremap <C-w>k :resize +15<CR>
@@ -232,14 +215,11 @@ nnoremap <silent> <leader>th :new<CR>:terminal<CR>
 tnoremap <C-x> <C-\><C-n><C-w>q
 
 " ctrlp.vim
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = ''
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = ''
 
 " Airline
-let g:airline_left_sep  = ''
-let g:airline_right_sep = ''
-let g:airline#extensions#ale#enabled = 1
-let airline#extensions#ale#error_symbol = 'E:'
-let airline#extensions#ale#warning_symbol = 'W:'
-let g:airline_theme='afterglow'
+" let g:airline#extensions#ale#enabled = 1
+" let airline#extensions#ale#error_symbol = 'E:'
+" let airline#extensions#ale#warning_symbol = 'W:'

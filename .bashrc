@@ -11,8 +11,9 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=10000
+# set to -1 for infinite
+HISTSIZE=-1
+HISTFILESIZE=-1
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -24,7 +25,7 @@ shopt -s checkwinsize
 # disable the default virtualenv prompt change
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 venv() {
-    if [[ $VIRTUAL_ENV == *"scratch"* ]]; then
+    if [[ $VIRTUAL_ENV == *"def"* ]]; then
         echo ""
     else
         [[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} " | awk '{print substr($0,0,3)" "}'
@@ -67,9 +68,12 @@ export PATH=$HOME/.gems/bin:$PATH
 export WORKON_HOME=$HOME/.envs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /home/chris/.local/bin/virtualenvwrapper.sh
+if (tty -s); then
+  workon def
+fi
 
 # Fuzzy search
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.config/fzf-bindings.bash ] && source ~/.config/fzf-bindings.bash
 
 # Don't echo ^C
 stty -ctlecho
@@ -91,7 +95,7 @@ alias ptex='pdflatex --synctex=1'
 #alias power='sudo cpupower frequency-set --governor performance'
 alias power='sudo echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias powercheck='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias jup='python -m jupyter notebook'
+alias jup='python -m jupyter lab --LabApp.token=""'
 alias sshaws='ssh ec2-3-93-220-46.compute-1.amazonaws.com'
 alias rgp='rg -tpy'
 alias python='python3'
@@ -101,4 +105,3 @@ alias space='du -h | sort -hr | less'
 alias c=/home/$USER/.local/bin/calculon
 alias grep=rg
 alias caff=/home/chris/Code/scripts/caffeine.sh
-source /home/chris/.config/broot/launcher/bash/br
