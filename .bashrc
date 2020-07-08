@@ -40,9 +40,10 @@ branch() {
 PS1='\[\e[38;5;250m\]$(venv)\[\e[38;5;173m\]$(branch)\[\e[1;34m\]\w\[\e[m\] '
 
 alias ls='ls --color=auto'
-alias ll='ls -alF'
+alias ll='ls -lHs'
 alias la='ls -A'
 alias l='ls -CF'
+alias lg='git ls-files'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

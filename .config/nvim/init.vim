@@ -6,12 +6,8 @@ Plug 'vim-airline/vim-airline'
 " https://github.com/Yggdroot/indentLine
 Plug 'Yggdroot/indentLine'
 
-" Color schemes
-" https://github.com/ayu-theme/ayu-vim  # not enough contrast
-" https://github.com/rakr/vim-one
-" https://github.com/morhetz/gruvbox
+" Color scheme
 Plug 'morhetz/gruvbox'
-" https://github.com/sonph/onehalf
 
 " https://github.com/junegunn/fzf.vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -23,18 +19,32 @@ Plug 'junegunn/fzf.vim'
  Plug 'ncm2/ncm2-bufword'
  Plug 'ncm2/ncm2-path'
  Plug 'ncm2/ncm2-jedi'
-" Could try Kite as well: https://github.com/kiteco/vim-plugin
+ Plug 'davidhalter/jedi-vim'
+
+ " Linting
+ Plug 'dense-analysis/ale'
 
 " Formatter
 Plug 'Chiel92/vim-autoformat'
 Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
 Plug 'preservim/nerdcommenter'
 
+" Git
+Plug 'tpope/vim-fugitive'
+
+" Language packs
+Plug 'sheerun/vim-polyglot'
+
 call plug#end()
 
 " =====================================
 " Initial settings
 " =====================================
+
+" Color settings
+set termguicolors
+colorscheme gruvbox
+set background=light
 
 " Disable swap file warnings
 set shortmess+=A
@@ -99,13 +109,36 @@ set scrolloff=3
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines.
 if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+    set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 set list
 
 " Also highlight all tabs and trailing whitespace characters.
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$\|\t/
+
+" Don't hide tildes and stuff
+set conceallevel=0
+let g:indentLine_setConceal = 0
+
+" open new split panes to right and below (as you probably expect)
+set splitright
+set splitbelow
+
+" Spell check
+autocmd FileType latex,tex,md,markdown setlocal spell spelllang=en_gb
+"hi clear SpellBad
+"hi clear SpellCap
+"hi clear SpellLocal
+"hi clear SpellRare
+"hi SpellBad cterm=underline ctermfg=161
+"hi SpellCap cterm=underline ctermfg=161
+"hi SpellLocal cterm=underline ctermfg=161
+"hi SpellRare cterm=underline ctermfg=161
+
+" =================================
+" Autocomplete, linting, formatting
+" =================================
 
 " ncm2
  autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -120,47 +153,35 @@ let ncm2#complete_length = [[1, 1]]
 " Use new fuzzy based matches
 let g:ncm2#matcher = 'substrfuzzy'
 
-" open new split panes to right and below (as you probably expect)
-set splitright
-set splitbelow
+" Shortcuts from jedi-vim
+" ,g: goto assignment
+" ,d: goto definition (deeper)
+"  K: show docs
+" ,r: rename
+" ,n: show usages
 
-" =====================================
-" Theme color scheme settings
-" =====================================
-set termguicolors
-"let ayucolor="light"
-colorscheme gruvbox
-set background=light
-
-" Spell check
-autocmd FileType latex,tex,md,markdown setlocal spell spelllang=en_gb
-hi clear SpellBad
-hi clear SpellCap
-hi clear SpellLocal
-hi clear SpellRare
-hi SpellBad cterm=underline ctermfg=161
-hi SpellCap cterm=underline ctermfg=161
-hi SpellLocal cterm=underline ctermfg=161
-hi SpellRare cterm=underline ctermfg=161
-
-autocmd BufEnter * setlocal cursorline
-autocmd WinEnter * setlocal cursorline
-autocmd BufLeave * setlocal nocursorline
-autocmd WinLeave * setlocal nocursorline
-autocmd BufEnter * setlocal cursorcolumn
-autocmd WinEnter * setlocal cursorcolumn
-autocmd BufLeave * setlocal nocursorcolumn
-autocmd WinLeave * setlocal nocursorcolumn
+" ALE settings
+nmap <silent> ]g <Plug>(ale_previous_wrap)
+nmap <silent> [g <Plug>(ale_next_wrap)
+"let g:ale_lint_on_enter = 0
+"let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
+let g:ale_fixers = {'javascript': ['eslint']}
 
 " =====================================
 " key map
 " =====================================
 " change the leader key
 let mapleader=","
-let maplocalleader="-"
 
 " Search and Replace
 nmap <leader>h :%s//<Left>
+
+" Toggle gruvbox light/dark
+nnoremap <leader>cq :execute "set background=" . (&background == "dark" ? "light" : "dark")<CR>
 
 " vim-autoformat
 noremap <leader>af :Autoformat<CR>
@@ -192,7 +213,6 @@ nnoremap <silent> <leader>bh :new<CR>
 " vertical split with new buffer
 nnoremap <silent> <leader>bv :vnew<CR>
 " redraw screan and clear search highlighted items
-"nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 nnoremap <leader>l :nohlsearch<CR><C-L>
 
 " Moving between splits
@@ -201,25 +221,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Resizing (same between vim/tmux)
+" Resizing
 noremap <C-w>k :resize +15<CR>
 noremap <C-w>j :resize -15<CR>
 noremap <C-w>h :vertical:resize -15<CR>
 noremap <C-w>l :vertical:resize +15<CR>
-
-" Start terminal in insert mode
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-nnoremap <silent> <leader>tt :terminal<CR>
-nnoremap <silent> <leader>tv :vnew<CR>:terminal<CR>
-nnoremap <silent> <leader>th :new<CR>:terminal<CR>
-tnoremap <C-x> <C-\><C-n><C-w>q
-
-" ctrlp.vim
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = ''
-
-" Airline
-" let g:airline#extensions#ale#enabled = 1
-" let airline#extensions#ale#error_symbol = 'E:'
-" let airline#extensions#ale#warning_symbol = 'W:'
