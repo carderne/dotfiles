@@ -3,3 +3,5 @@
 	name = Chris Arderne
 [core]
 	editor = vim
+[diff]
+	tool = vimdiff

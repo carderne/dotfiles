@@ -33,4 +33,4 @@ rofi.separator-style: solid
 rofi.font:              Source Code Pro Medium 16
 rofi.show-icons:        true
 rofi.drun-icon-theme:   Arc
-rofi.fullscreen:        true
+! rofi.fullscreen:        true

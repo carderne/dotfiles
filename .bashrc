@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+    *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -32,15 +32,19 @@ venv() {
     fi
 }
 
-
 branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /' | awk '{print substr($0,0,3)" "}'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /'
 }
+
+ptex() {
+    echo $1.tex | entr -s "pdflatex --synctex=1 $1.tex && xdg-open $1.pdf"
+}
+export -f ptex
 
 PS1='\[\e[38;5;250m\]$(venv)\[\e[38;5;173m\]$(branch)\[\e[1;34m\]\w\[\e[m\] '
 
 alias ls='ls --color=auto'
-alias ll='ls -lHs'
+alias ll='ls -lhS'
 alias la='ls -A'
 alias l='ls -CF'
 alias lg='git ls-files'
@@ -49,11 +53,11 @@ alias lg='git ls-files'
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 PATH=$PATH:~/.local/bin
@@ -65,44 +69,72 @@ rm -rf ~/Downloads/ || true
 export GEM_HOME=$HOME/.gems
 export PATH=$HOME/.gems/bin:$PATH
 
-# Virtualenvwrapper
-export WORKON_HOME=$HOME/.envs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /home/chris/.local/bin/virtualenvwrapper.sh
-if (tty -s); then
-  workon def
-fi
+# NPM install global to userdir
+#NPM_PACKAGES="${HOME}/.npm-packages"
+#export PATH="$PATH:$NPM_PACKAGES/bin"
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+#export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # Fuzzy search
 [ -f ~/.config/fzf-bindings.bash ] && source ~/.config/fzf-bindings.bash
+export FZF_CTRL_T_COMMAND='find .'
 
 # Don't echo ^C
 stty -ctlecho
 
-# Set any vi variant as editor
-EDITOR=vi
+# Set any Neovim as editor
+EDITOR=/usr/bin/nvim
+export EDITOR=/usr/bin/nvim
 
 # Enable recursive *'ing
 shopt -s globstar
 
+# pyenv
+export PATH="/home/chris/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+pyenv virtualenvwrapper
+
 # Custom aliases
 alias ..='cd ..'
+alias ...='cd ../..'
 alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
-bind '"\C-r": reverse-search-history'
+#bind '"\C-r": reverse-search-history'
 alias o='xdg-open 2>/dev/null'
-alias dropbox='dropbox.py'
-alias smux='/home/chris/Code/scripts/tmux-side.sh'
-alias ptex='pdflatex --synctex=1'
-#alias power='sudo cpupower frequency-set --governor performance'
-alias power='sudo echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+#alias dropbox='dropbox.py'
+#alias smux='/home/chris/Code/scripts/tmux-side.sh'
+alias power='echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias powercheck='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias jup='python -m jupyter lab --LabApp.token=""'
-alias sshaws='ssh ec2-3-93-220-46.compute-1.amazonaws.com'
 alias rgp='rg -tpy'
+alias rgi='rg -g "*.py" -g "*.ipynb"'
 alias python='python3'
-alias wifi='nmcli -c yes dev wifi | head -n 10'
-alias up='nmcli con up id'
+#alias wifi='nmcli -c yes dev wifi | head -n 10'
+#alias up='nmcli con up id'
 alias space='du -h | sort -hr | less'
-alias c=/home/$USER/.local/bin/calculon
+alias c=/home/$USER/bin/calculon.py
 alias grep=rg
-alias caff=/home/chris/Code/scripts/caffeine.sh
+alias caff=/home/chris/bin/caffeine.sh
+
+alias aud='/home/chris/bin/switch-audio2.sh'
+
+alias m2d='c [1/100000]x'
+alias d2m='c 100000x'
+
+alias fd=fdfind
+
+#alias md='python -m markdown'
+#alias mdi='md index.md > index.html'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+ddg ()
+{
+  /usr/bin/w3m "https://duckduckgo.com/lite?q=$*&kd=-1"
+}
+
+export GDAL_DATA=/home/chris/.pyenv/versions/3.7.8/lib/python3.7/site-packages/fiona/gdal_data/
