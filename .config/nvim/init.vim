@@ -22,6 +22,9 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'davidhalter/jedi-vim'
 
+" NerdTREE
+Plug 'preservim/nerdtree'
+
 " Linting
 Plug 'dense-analysis/ale'
 
@@ -69,9 +72,9 @@ set shortmess+=A
 set updatetime=100
 
 " Set python interpreter
-let g:python3_host_prog = '/home/chris/.pyenv/versions/3.7.8/bin/python3'
-let g:python_host_prog = '/home/chris/.pyenv/versions/3.7.8/bin/python'
-let g:black_virtualenv = '/home/chris/.pyenv/versions/3.7.8'
+let g:python3_host_prog = '/home/chris/.pyenv/versions/3.9.10/bin/python3'
+let g:python_host_prog = '/home/chris/.pyenv/versions/3.9.10/bin/python3'
+let g:black_virtualenv = '/home/chris/.pyenv/versions/3.9.10'
 
 " Disable beep / flash
 set vb t_vb=
@@ -84,7 +87,7 @@ set ai sw=4
 set expandtab
 
 " Language-specific tab size
-autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd Filetype javascript,json,typescriptreact,typescript,ts setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype yaml,yml setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 autocmd Filetype beancount,bean setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
@@ -168,6 +171,8 @@ syn match myExCapitalWords +\<\w*[A-Z]\K*\>+ contains=@NoSpell
 "hi SpellLocal cterm=underline ctermfg=161
 "hi SpellRare cterm=underline ctermfg=161
 
+"set clipboard=unnamedplus
+
 " =================================
 " Autocomplete, linting, formatting
 " =================================
@@ -217,12 +222,12 @@ nmap <silent> ]g <Plug>(ale_previous_wrap)
 nmap <silent> [g <Plug>(ale_next_wrap)
 "let g:ale_lint_on_enter = 0
 "let g:ale_lint_on_text_changed = 'never'
+let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'python': ['black']}
-nnoremap <leader>f :Autoformat<CR>:ALEFix<CR>
+let g:ale_fixers = {'javascript': ['prettier'], 'python': ['black'], 'typescriptreact': ['prettier'], 'typescript': ['prettier']}
 
 " =====================================
 " key map
@@ -230,15 +235,27 @@ nnoremap <leader>f :Autoformat<CR>:ALEFix<CR>
 " change the leader key
 let mapleader=","
 
+nnoremap <Space> :
+
 " save
 nnoremap <silent><c-s> :<c-u>update<cr>
 
 " Search and Replace
 nmap <leader>h :%s//<Left>
 
+" Paste toggle
+"set paste
+set pastetoggle=<leader>p
+
 " Toggle gruvbox light/dark
 nnoremap <leader>cq :execute "set background=" . (&background == "dark" ? "light" : "dark")<CR>
 
+" nerdtree
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-c> :NERDTreeClose<CR>
 
 " nercommenter
 " C-_ is Ctrl-/ (some weird vim thing)
@@ -248,6 +265,7 @@ vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 " vim-autoformat
 noremap <leader>af :Autoformat<CR>
 noremap <leader>bl :Black<CR>
+noremap <leader>ba :ALEFix<CR>
 
 " Shortcut to edit and reload config
 nnoremap <silent> <leader>ec :e $MYVIMRC<CR>
@@ -291,3 +309,4 @@ noremap <C-w>l :vertical:resize +15<CR>
 
 " fzf
 nnoremap <leader>g :GFiles<CR>
+let $BAT_THEME = 'GitHub'

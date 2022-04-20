@@ -80,6 +80,9 @@ export PATH=$HOME/.gems/bin:$PATH
 [ -f ~/.config/fzf-bindings.bash ] && source ~/.config/fzf-bindings.bash
 export FZF_CTRL_T_COMMAND='find .'
 
+# bat colour scheme
+export BAT_THEME="GitHub"
+
 # Don't echo ^C
 stty -ctlecho
 
@@ -91,11 +94,13 @@ export EDITOR=/usr/bin/nvim
 shopt -s globstar
 
 # pyenv
-export PATH="/home/chris/.pyenv/bin:$PATH"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 pyenv virtualenvwrapper
+alias mkvirtualenv='mkvirtualenv -p $(pyenv which python)'
 
 # Custom aliases
 alias ..='cd ..'
@@ -107,15 +112,15 @@ alias o='xdg-open 2>/dev/null'
 #alias smux='/home/chris/Code/scripts/tmux-side.sh'
 alias power='echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias powercheck='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias jup='python -m jupyter lab --LabApp.token=""'
+#alias jup='python -m jupyter lab --LabApp.token="" --notebook-dir ~/'
 alias rgp='rg -tpy'
 alias rgi='rg -g "*.py" -g "*.ipynb"'
-alias python='python3'
+#alias python='python3'
 #alias wifi='nmcli -c yes dev wifi | head -n 10'
 #alias up='nmcli con up id'
 alias space='du -h | sort -hr | less'
-alias c=/home/$USER/bin/calculon.py
-alias grep=rg
+#alias c=/home/$USER/bin/calculon.py
+#alias grep=rg
 alias caff=/home/chris/bin/caffeine.sh
 
 alias aud='/home/chris/bin/switch-audio2.sh'
@@ -137,4 +142,6 @@ ddg ()
   /usr/bin/w3m "https://duckduckgo.com/lite?q=$*&kd=-1"
 }
 
-export GDAL_DATA=/home/chris/.pyenv/versions/3.7.8/lib/python3.7/site-packages/fiona/gdal_data/
+export GDAL_DATA=/home/chris/.pyenv/versions/3.9.7/lib/python3.9/site-packages/fiona/gdal_data/
+
+echo "Use fd, exa, bat, jq, vd"
