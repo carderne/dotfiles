@@ -1,0 +1,7 @@
+for_window [class=.*] border pixel 2
+
+bindsym Mod4+Mod1+g gaps horizontal current set 200
+bindsym Mod4+Mod1+z open
+
+smart_gaps inverse_outer
+gaps horizontal 600
