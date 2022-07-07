@@ -28,10 +28,13 @@ Plug 'preservim/nerdtree'
 " Linting
 Plug 'dense-analysis/ale'
 
+" Mypy
+"Plug 'integralist/vim-mypy'
+
 " Formatter
 Plug 'Chiel92/vim-autoformat'
-Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
-"Plug 'psf/black'
+"Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
+Plug 'psf/black'
 Plug 'preservim/nerdcommenter'
 
 " Git
@@ -72,9 +75,9 @@ set shortmess+=A
 set updatetime=100
 
 " Set python interpreter
-let g:python3_host_prog = '/home/chris/.pyenv/versions/3.9.10/bin/python3'
-let g:python_host_prog = '/home/chris/.pyenv/versions/3.9.10/bin/python3'
-let g:black_virtualenv = '/home/chris/.pyenv/versions/3.9.10'
+let g:python3_host_prog = '/home/chris/.pyenv/versions/3.10.5/bin/python'
+let g:python_host_prog = '/home/chris/.pyenv/versions/3.10.5/bin/python'
+let g:black_virtualenv = '/home/chris/.virtualenvs/_black'
 
 " Disable beep / flash
 set vb t_vb=
@@ -226,8 +229,9 @@ let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'python': ['black'], 'typescriptreact': ['prettier'], 'typescript': ['prettier']}
+let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint']}
+let g:ale_fixers = {'javascript': ['prettier'], 'python': ['black', 'isort'], 'typescriptreact': ['prettier'], 'typescript': ['prettier']}
+let b:ale_python_mypy_options='--no-pretty'
 
 " =====================================
 " key map

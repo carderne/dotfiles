@@ -22,13 +22,17 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# colors for fd (and other stuff?)
+export LS_COLORS="$(vivid generate ayu)"
+
 # disable the default virtualenv prompt change
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 venv() {
     if [[ $VIRTUAL_ENV == *"def"* ]]; then
         echo ""
     else
-        [[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} " | awk '{print substr($0,0,3)" "}'
+        #[[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} " | awk '{print substr($0,0,5)" "}'
+        [[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/} "
     fi
 }
 
@@ -82,6 +86,7 @@ export FZF_CTRL_T_COMMAND='find .'
 
 # bat colour scheme
 export BAT_THEME="GitHub"
+alias cat='batcat'
 
 # Don't echo ^C
 stty -ctlecho
@@ -144,4 +149,6 @@ ddg ()
 
 export GDAL_DATA=/home/chris/.pyenv/versions/3.9.7/lib/python3.9/site-packages/fiona/gdal_data/
 
-echo "Use fd, exa, bat, jq, vd"
+#echo "Use fd, exa, bat, jq, vd"
+source <(kubectl completion bash | sed s/kubectl/k/g)
+alias k=kubectl
