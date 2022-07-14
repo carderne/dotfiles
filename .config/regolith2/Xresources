@@ -21,3 +21,8 @@ regolith.wallpaper.file: /home/chris/.config/regolith2/bg.jpg
 regolith.wallpaper.options: stretched
 regolith.lockscreen.wallpaper.file: /home/chris/.config/regolith2/bg.jpg
 regolith.lockscreen.wallpaper.options: stretched
+
+i3xrocks.label.wired: net
+i3xrocks.label.time:
+i3xrocks.label.memory: mem
+i3xrocks.label.cpu: cpu

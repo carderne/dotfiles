@@ -23,7 +23,8 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # colors for fd (and other stuff?)
-export LS_COLORS="$(vivid generate ayu)"
+#export LS_COLORS="$(vivid generate ayu)"
+eval "$(dircolors ~/bin/gruvbox.dircolors)"
 
 # disable the default virtualenv prompt change
 export VIRTUAL_ENV_DISABLE_PROMPT=1
