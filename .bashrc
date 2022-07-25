@@ -153,3 +153,24 @@ export GDAL_DATA=/home/chris/.pyenv/versions/3.9.7/lib/python3.9/site-packages/f
 #echo "Use fd, exa, bat, jq, vd"
 source <(kubectl completion bash | sed s/kubectl/k/g)
 alias k=kubectl
+
+alias g="git"
+source /usr/share/bash-completion/completions/git
+__git_complete g __git_main
+
+# g lo for log history
+# g lg
+# https://stackoverflow.com/a/41070854
+
+function t() {
+  local dir;
+  while true; do
+    # exit with ^D
+    dir="$(ls -a1p | grep '/$' | grep -v '^./$' | fzf --height 40% --reverse --no-multi --preview 'pwd' --preview-window=up,1,border-none --no-info)"
+    if [[ -z "${dir}" ]]; then
+      break
+    else
+      cd "${dir}"
+    fi
+  done
+}
