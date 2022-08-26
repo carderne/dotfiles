@@ -66,6 +66,8 @@ if ! shopt -oq posix; then
 fi
 
 PATH=$PATH:~/.local/bin
+export FLYCTL_INSTALL="/home/chris/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Remove Downloads directory if it appears
 rm -rf ~/Downloads/ || true

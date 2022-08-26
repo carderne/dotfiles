@@ -229,7 +229,12 @@ let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint']}
+
+let g:ale_linters = {
+\   'python': ['mypy', 'flake8'],
+\   'javascript': ['eslint']
+\ }
+
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'python': ['black', 'isort'],
@@ -238,6 +243,7 @@ let g:ale_fixers = {
 \   'yaml': ['prettier']
 \ }
 let b:ale_python_mypy_options='--no-pretty'
+let g:ale_python_pylint_use_msg_id = 1
 
 " =====================================
 " key map
