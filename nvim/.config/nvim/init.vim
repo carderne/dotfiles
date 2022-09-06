@@ -75,8 +75,7 @@ set shortmess+=A
 set updatetime=100
 
 " Set python interpreter
-let g:python3_host_prog = '/home/chris/.pyenv/versions/3.10.4/bin/python'
-let g:python_host_prog = '/home/chris/.pyenv/versions/3.10.4/bin/python'
+let g:python3_host_prog = '/home/chris/.pyenv/shims/python'
 let g:black_virtualenv = '/home/chris/.virtualenvs/_black'
 
 " Disable beep / flash
@@ -260,7 +259,7 @@ nnoremap <silent><c-s> :<c-u>update<cr>
 nmap <leader>h :%s//<Left>
 
 " Paste toggle
-"set paste
+set paste
 set pastetoggle=<leader>p
 
 " Toggle gruvbox light/dark
