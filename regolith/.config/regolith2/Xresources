@@ -26,3 +26,5 @@ i3xrocks.label.wired: net
 i3xrocks.label.time:
 i3xrocks.label.memory: mem
 i3xrocks.label.cpu: cpu
+
+i3-wm.bar.trayoutput: primary

@@ -24,7 +24,7 @@ shopt -s checkwinsize
 
 # colors for fd (and other stuff?)
 #export LS_COLORS="$(vivid generate ayu)"
-#eval "$(dircolors ~/bin/gruvbox.dircolors)"
+eval "$(dircolors ~/bin/gruvbox.dircolors)"
 
 # disable the default virtualenv prompt change
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -66,8 +66,6 @@ if ! shopt -oq posix; then
 fi
 
 PATH=$PATH:~/.local/bin
-export FLYCTL_INSTALL="/home/chris/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Remove Downloads directory if it appears
 rm -rf ~/Downloads/ || true
@@ -113,22 +111,33 @@ alias mkvirtualenv='mkvirtualenv -p $(pyenv which python)'
 # Custom aliases
 alias ..='cd ..'
 alias ...='cd ../..'
+alias dotfiles='/usr/bin/git --git-dir=/home/chris/.dotfiles/ --work-tree=/home/chris'
+#bind '"\C-r": reverse-search-history'
 alias o='xdg-open 2>/dev/null'
+#alias dropbox='dropbox.py'
+#alias smux='/home/chris/Code/scripts/tmux-side.sh'
 alias power='echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias powercheck='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias jup='python -m jupyter lab --LabApp.token="" --notebook-dir ~/'
+#alias jup='python -m jupyter lab --LabApp.token="" --notebook-dir ~/'
 alias rgp='rg -tpy'
 alias rgi='rg -g "*.py" -g "*.ipynb"'
+#alias python='python3'
+#alias wifi='nmcli -c yes dev wifi | head -n 10'
+#alias up='nmcli con up id'
 alias space='du -h | sort -hr | less'
-alias grep=rg
+#alias c=/home/$USER/bin/calculon.py
+#alias grep=rg
 alias caff=/home/chris/bin/caffeine.sh
 
-#alias aud='/home/chris/bin/switch-audio2.sh'
+alias aud='/home/chris/bin/switch-audio2.sh'
 
 alias m2d='c [1/100000]x'
 alias d2m='c 100000x'
 
 alias fd=fdfind
+
+#alias md='python -m markdown'
+#alias mdi='md index.md > index.html'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
