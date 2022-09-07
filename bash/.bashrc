@@ -174,3 +174,6 @@ function t() {
     fi
   done
 }
+
+# opt out of Azure Functions telemetry
+FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1
