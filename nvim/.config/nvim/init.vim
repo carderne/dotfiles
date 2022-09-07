@@ -28,13 +28,9 @@ Plug 'preservim/nerdtree'
 " Linting
 Plug 'dense-analysis/ale'
 
-" Mypy
-"Plug 'integralist/vim-mypy'
-
 " Formatter
 Plug 'Chiel92/vim-autoformat'
-"Plug 'psf/black', { 'commit': 'ce14fa8b497bae2b50ec48b3bd7022573a59cdb1' }
-Plug 'psf/black'
+"Plug 'psf/black'
 Plug 'preservim/nerdcommenter'
 
 " Git
@@ -75,8 +71,8 @@ set shortmess+=A
 set updatetime=100
 
 " Set python interpreter
-let g:python3_host_prog = '/home/chris/.pyenv/shims/python'
-let g:black_virtualenv = '/home/chris/.virtualenvs/_black'
+let g:python3_host_prog = '/usr/bin/python3'
+"let g:black_virtualenv = '/home/chris/.virtualenvs/_black'
 
 " Disable beep / flash
 set vb t_vb=
@@ -206,11 +202,11 @@ au User Ncm2Plugin call ncm2#register_source({
 
 " TailwindCSS
 " Set the completefunc you can do this per file basis or with a mapping
-set completefunc=tailwind#complete
+" set completefunc=tailwind#complete
 " The mapping I use
-nnoremap <leader>tt :set completefunc=tailwind#complete<cr>
+" nnoremap <leader>tt :set completefunc=tailwind#complete<cr>
 " Add this autocmd to your vimrc to close the preview window after the completion is done
-autocmd CompleteDone * pclose
+" autocmd CompleteDone * pclose
 
 " Shortcuts from jedi-vim
 " ,g: goto assignment
@@ -259,7 +255,7 @@ nnoremap <silent><c-s> :<c-u>update<cr>
 nmap <leader>h :%s//<Left>
 
 " Paste toggle
-set paste
+"set paste
 set pastetoggle=<leader>p
 
 " Toggle gruvbox light/dark
@@ -279,7 +275,7 @@ vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 
 " vim-autoformat
 noremap <leader>af :Autoformat<CR>
-noremap <leader>bl :Black<CR>
+"noremap <leader>bl :Black<CR>
 noremap <leader>ba :ALEFix<CR>
 
 " Shortcut to edit and reload config
