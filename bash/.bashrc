@@ -162,6 +162,13 @@ __git_complete g __git_main
 # g lg
 # https://stackoverflow.com/a/41070854
 
+rgr() {( set -e
+    git status
+    files=$(rg -l "$1")
+    echo $files | xargs sed -i "s/$1/$2/g"
+    git diff $files
+)}
+
 function t() {
   local dir;
   while true; do
