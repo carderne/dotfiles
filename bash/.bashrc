@@ -139,6 +139,8 @@ alias fd=fdfind
 #alias md='python -m markdown'
 #alias mdi='md index.md > index.html'
 
+alias docker-compose='docker compose'
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -184,3 +186,12 @@ function t() {
 
 # opt out of Azure Functions telemetry
 FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1
+
+export FLYCTL_INSTALL="/home/chris/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/chris/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+alias pn='pnpm'
+# pnpm end
