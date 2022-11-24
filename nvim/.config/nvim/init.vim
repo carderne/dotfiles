@@ -30,7 +30,6 @@ Plug 'dense-analysis/ale'
 
 " Formatter
 Plug 'Chiel92/vim-autoformat'
-"Plug 'psf/black'
 Plug 'preservim/nerdcommenter'
 
 " Git
@@ -48,6 +47,12 @@ Plug 'sheerun/vim-polyglot'
 " Beancount
 Plug 'nathangrigg/vim-beancount'
 Plug 'sbdchd/neoformat'
+
+" Context
+Plug 'wellle/context.vim'
+
+" Peekaboo
+Plug 'junegunn/vim-peekaboo'
 
 call plug#end()
 
