@@ -1,4 +1,0 @@
-[audio]
-interval=10
-command='/home/chris/bin/get-audio.sh'
-signal=10
