@@ -1,8 +1,8 @@
-[user]
-	email = chris@rdrn.me
-	name = Chris Arderne
+[includeIf "gitdir:~/Documents/"]
+  path = .gitconfig_personal
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore_global
 [diff]
 	tool = vimdiff
 [alias]

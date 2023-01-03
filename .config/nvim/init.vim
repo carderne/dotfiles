@@ -29,7 +29,7 @@ Plug 'preservim/nerdtree'
 Plug 'dense-analysis/ale'
 
 " Formatter
-Plug 'Chiel92/vim-autoformat'
+"Plug 'Chiel92/vim-autoformat'
 Plug 'preservim/nerdcommenter'
 
 " Git
@@ -45,14 +45,14 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'mrdotb/vim-tailwindcss'
 
 " Beancount
-Plug 'nathangrigg/vim-beancount'
-Plug 'sbdchd/neoformat'
+"Plug 'nathangrigg/vim-beancount'
+"Plug 'sbdchd/neoformat'
 
 " Context
-Plug 'wellle/context.vim'
+"Plug 'wellle/context.vim'
 
 " Peekaboo
-Plug 'junegunn/vim-peekaboo'
+"Plug 'junegunn/vim-peekaboo'
 
 call plug#end()
 
@@ -66,8 +66,6 @@ colorscheme gruvbox
 set background=light
 set cursorline
 set cursorcolumn
-"highlight Cursorline=blue
-"hi CursorLine cterm=red ctermbg=black
 
 " Disable swap file warnings
 set shortmess+=A
@@ -76,8 +74,7 @@ set shortmess+=A
 set updatetime=100
 
 " Set python interpreter
-let g:python3_host_prog = '/usr/bin/python3'
-"let g:black_virtualenv = '/home/chris/.virtualenvs/_black'
+let g:python3_host_prog = '/Users/chris/.pyenv/shims/python3'
 
 " Disable beep / flash
 set vb t_vb=
@@ -140,7 +137,6 @@ set list
 " Also highlight all tabs and trailing whitespace characters.
 " Don't highlight when in insert mode
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-"match ExtraWhitespace /\s\+$\|\t/
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
@@ -152,11 +148,6 @@ au BufReadPost,BufNewFile *.md set conceallevel=0
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
-"let g:indentLine_setConceal = 0
-"let g:vim_json_syntax_conceal = 0
-"let g:vim_markdown_conceal = 0
-"let g:vim_markdown_conceal_code_blocks = 0
-"let g:indentLine_char = '¦'
 
 " open new split panes to right and below (as you probably expect)
 set splitright
@@ -165,16 +156,6 @@ set splitbelow
 " Spell check
 autocmd FileType latex,tex,md,markdown setlocal spell spelllang=en_gb
 syn match myExCapitalWords +\<\w*[A-Z]\K*\>+ contains=@NoSpell
-"hi clear SpellBad
-"hi clear SpellCap
-"hi clear SpellLocal
-"hi clear SpellRare
-"hi SpellBad cterm=underline ctermfg=161
-"hi SpellCap cterm=underline ctermfg=161
-"hi SpellLocal cterm=underline ctermfg=161
-"hi SpellRare cterm=underline ctermfg=161
-
-"set clipboard=unnamedplus
 
 " =================================
 " Autocomplete, linting, formatting
@@ -182,7 +163,6 @@ syn match myExCapitalWords +\<\w*[A-Z]\K*\>+ contains=@NoSpell
 
 " ncm2
 autocmd BufEnter *.py,*.js,*.html,*.css,*,scss call ncm2#enable_for_buffer()
-"autocmd FileType tex call ncm2#disable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
@@ -203,14 +183,10 @@ au User Ncm2Plugin call ncm2#register_source({
     \ 'word_pattern': '[\w\-]+',
     \ 'complete_pattern': ':\s*',
     \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-    \ })
+\ })
 
 " TailwindCSS
-" Set the completefunc you can do this per file basis or with a mapping
-" set completefunc=tailwind#complete
-" The mapping I use
 " nnoremap <leader>tt :set completefunc=tailwind#complete<cr>
-" Add this autocmd to your vimrc to close the preview window after the completion is done
 " autocmd CompleteDone * pclose
 
 " Shortcuts from jedi-vim
@@ -223,8 +199,6 @@ au User Ncm2Plugin call ncm2#register_source({
 " ALE settings
 nmap <silent> ]g <Plug>(ale_previous_wrap)
 nmap <silent> [g <Plug>(ale_next_wrap)
-"let g:ale_lint_on_enter = 0
-"let g:ale_lint_on_text_changed = 'never'
 let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -257,11 +231,7 @@ nnoremap <Space> :
 nnoremap <silent><c-s> :<c-u>update<cr>
 
 " Search and Replace
-nmap <leader>h :%s//<Left>
-
-" Paste toggle
-"set paste
-set pastetoggle=<leader>p
+nmap <leader>h :%s/
 
 " Toggle gruvbox light/dark
 nnoremap <leader>cq :execute "set background=" . (&background == "dark" ? "light" : "dark")<CR>
@@ -274,13 +244,10 @@ nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <C-c> :NERDTreeClose<CR>
 
 " nercommenter
-" C-_ is Ctrl-/ (some weird vim thing)
-nmap <C-_>   <Plug>NERDCommenterToggle
-vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+nnoremap <C-/>   <Plug>NERDCommenterToggle
 
 " vim-autoformat
-noremap <leader>af :Autoformat<CR>
-"noremap <leader>bl :Black<CR>
+"noremap <leader>af :Autoformat<CR>
 noremap <leader>ba :ALEFix<CR>
 
 " Shortcut to edit and reload config
@@ -298,16 +265,8 @@ nnoremap <silent> <leader>bb <C-^>
 nnoremap <silent> <leader>bn :bn<CR>
 " go to previous buffer
 nnoremap <silent> <leader>bp :bp<CR>
-" close buffer
-nnoremap <silent> <leader>bd :bd<CR>
-" kill buffer
-nnoremap <silent> <leader>bk :bd!<CR>
 " list and select buffer
 nnoremap <silent> <leader>bg :ls<CR>:buffer<Space>
-" horizontal split with new buffer
-nnoremap <silent> <leader>bh :new<CR>
-" vertical split with new buffer
-nnoremap <silent> <leader>bv :vnew<CR>
 " redraw screan and clear search highlighted items
 nnoremap <leader>l :nohlsearch<CR><C-L>
 
@@ -325,4 +284,4 @@ noremap <C-w>l :vertical:resize +15<CR>
 
 " fzf
 nnoremap <leader>g :GFiles<CR>
-let $BAT_THEME = 'GitHub'
+"let $BAT_THEME = 'GitHub'
