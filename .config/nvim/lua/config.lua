@@ -21,7 +21,6 @@ vim.cmd([[
   autocmd Filetype beancount,bean setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 ]])
 
-
 -- file type recognition and syntax
 vim.cmd([[
   filetype on
@@ -31,7 +30,6 @@ vim.cmd([[
   syntax on
   syntax enable
 ]])
-
 
 -- Search configuration
 vim.cmd([[
