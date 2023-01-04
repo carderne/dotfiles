@@ -14,10 +14,13 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
+  -- Gruvbox theme with Treesitter support
   use({ "ellisonleao/gruvbox.nvim" })
 
+  -- Pretty indentation lines
   use("lukas-reineke/indent-blankline.nvim")
 
+  -- Commenting tool
   use({
     "numToStr/Comment.nvim",
     config = function()
@@ -25,14 +28,25 @@ return require("packer").startup(function(use)
     end,
   })
 
+  -- Status line at the bottom
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
-      require("lualine").setup()
+      require("lualine").setup({
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { { "filename", path = 1 } },
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
+        },
+      })
     end,
   })
 
+  -- File browser
   use({
     "nvim-tree/nvim-tree.lua",
     requires = {
@@ -43,9 +57,25 @@ return require("packer").startup(function(use)
     end,
   })
 
-  -- lsp
-  use({ "nvim-lua/plenary.nvim" })
+  -- Coq
   use({
+    "ms-jpq/coq_nvim",
+    branch = "coq",
+    requires = {
+      { "ms-jpq/coq.artifacts", branch = "artifacts" },
+      {
+        "ms-jpq/coq.thirdparty",
+        branch = "3p",
+        config = function()
+          require("coq_3p")({ { src = "copilot", short_name = "COP", accept_key = "<c-f>" } })
+        end,
+      },
+    },
+  })
+
+  -- lsp
+  use({
+    "nvim-lua/plenary.nvim", -- needed for the below
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
