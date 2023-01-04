@@ -109,6 +109,7 @@ return require("packer").startup(function(use)
     ensure_installed = {
       "stylua",
       "jq",
+      "isort",
       "black",
       -- "mypy",
       "prettierd",
@@ -121,6 +122,10 @@ return require("packer").startup(function(use)
 
   -- TreeSitter
   use({ "nvim-treesitter/nvim-treesitter" })
+
+  -- FZF
+  use({ "junegunn/fzf", run = ":call fzf#install()" })
+  use({ "junegunn/fzf.vim" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
