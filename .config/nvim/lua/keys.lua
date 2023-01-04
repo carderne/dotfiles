@@ -12,10 +12,10 @@ vim.cmd([[
 
 -- nvim-tree
 vim.cmd([[
-  nnoremap <leader>n :NvimTreeFocus<CR>
-  nnoremap <C-t> :NvimTreeToggle<CR>
-  nnoremap <C-f> :NvimTreeFind<CR>
-  nnoremap <C-c> :NvimTreeClose<CR>
+  nnoremap <leader>te :NvimTreeFocus<CR>
+  nnoremap <leader>tt :NvimTreeToggle<CR>
+  nnoremap <leader>tf :NvimTreeFind<CR>
+  nnoremap <leader>tc :NvimTreeClose<CR>
 ]])
 
 -- toggle line numbers and wrap

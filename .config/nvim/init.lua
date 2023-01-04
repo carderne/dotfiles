@@ -4,5 +4,6 @@ vim.g.loaded_netrwPlugin = 1
 
 require("plugins")
 require("lsp")
+require("treesitter")
 require("config")
 require("keys")

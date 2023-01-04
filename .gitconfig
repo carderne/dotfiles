@@ -1,10 +1,14 @@
 [includeIf "gitdir:~/Documents/"]
   path = .gitconfig_personal
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.gitignore_global
 [diff]
 	tool = vimdiff
+[merge]
+  tool = vimdiff
+[mergetool "vimdiff"]
+  path = nvim
 [alias]
 	lo = log --all --decorate --graph --oneline
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

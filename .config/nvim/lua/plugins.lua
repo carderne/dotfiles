@@ -3,7 +3,7 @@ local ensure_packer = function()
   local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd([[packadd packer.nvim]])
+    vim.cmd("packadd packer.nvim")
     return true
   end
   return false
@@ -80,6 +80,7 @@ return require("packer").startup(function(use)
       "stylua",
       "jq",
       "black",
+      -- "mypy",
       "prettierd",
     },
     automatic_installation = true,
@@ -87,6 +88,9 @@ return require("packer").startup(function(use)
   })
   require("null-ls").setup()
   require("mason-null-ls").setup_handlers()
+
+  -- TreeSitter
+  use({ "nvim-treesitter/nvim-treesitter" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

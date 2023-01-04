@@ -6,7 +6,7 @@ setopt CORRECT_ALL
 autoload -Uz compinit && compinit
 
 # GNU sed
-PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+path+=/opt/homebrew/opt/gnu-sed/libexec/gnubin
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -79,6 +79,7 @@ alias lg='git ls-files'
 
 alias vim='nvim'
 alias vi='vim'
+alias vimdiff='nvim -d'
 
 alias o='open'
 alias jup='~/.pyenv/shims/python -m jupyter lab  --notebook-dir ~'
