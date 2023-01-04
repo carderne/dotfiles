@@ -18,11 +18,12 @@ return require("packer").startup(function(use)
   use({ "ellisonleao/gruvbox.nvim" })
 
   -- Pretty indentation lines
-  use("lukas-reineke/indent-blankline.nvim")
+  use({"lukas-reineke/indent-blankline.nvim", tag = "v2.20.2"})
 
   -- Commenting tool
   use({
     "numToStr/Comment.nvim",
+    commit = "7bb563f",
     config = function()
       require("Comment").setup()
     end,
@@ -31,6 +32,7 @@ return require("packer").startup(function(use)
   -- Status line at the bottom
   use({
     "nvim-lualine/lualine.nvim",
+    commit = "32a7382",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
       require("lualine").setup({
@@ -49,6 +51,7 @@ return require("packer").startup(function(use)
   -- File browser
   use({
     "nvim-tree/nvim-tree.lua",
+    commit = "bac962c",
     requires = {
       "nvim-tree/nvim-web-devicons", -- optional, for file icons
     },
@@ -61,6 +64,7 @@ return require("packer").startup(function(use)
   use({
     "ms-jpq/coq_nvim",
     branch = "coq",
+    commit = "6ca8641",
     requires = {
       { "ms-jpq/coq.artifacts", branch = "artifacts" },
       {
@@ -73,15 +77,13 @@ return require("packer").startup(function(use)
     },
   })
 
-  -- lsp
-  use({
-    "nvim-lua/plenary.nvim", -- needed for the below
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-    "jose-elias-alvarez/null-ls.nvim",
-    "jayp0521/mason-null-ls.nvim",
-  })
+  -- LSP
+  use({ "nvim-lua/plenary.nvim", commit = "bb44479" })  -- used by stuff below
+  use({ "williamboman/mason.nvim", commit = "dac1093" })
+  use({ "williamboman/mason-lspconfig.nvim", commit = "aa25b41" })
+  use({ "neovim/nvim-lspconfig", commit = "e69978a" })
+  use({ "jose-elias-alvarez/null-ls.nvim", commit = "d09d7d8" })
+  use({ "jay-babu/mason-null-ls.nvim", commit = "1fcf055" })
   require("mason").setup()
   require("mason-lspconfig").setup({
     ensure_installed = {
@@ -121,11 +123,11 @@ return require("packer").startup(function(use)
   require("mason-null-ls").setup_handlers()
 
   -- TreeSitter
-  use({ "nvim-treesitter/nvim-treesitter" })
+  use({ "nvim-treesitter/nvim-treesitter", tag = "v0.8.1" })
 
   -- FZF
-  use({ "junegunn/fzf", run = ":call fzf#install()" })
-  use({ "junegunn/fzf.vim" })
+  use({ "junegunn/fzf", run = ":call fzf#install()", tag = "0.35.1" })
+  use({ "junegunn/fzf.vim", commit = "0f03107" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
