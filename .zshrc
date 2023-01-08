@@ -5,6 +5,13 @@ setopt CORRECT
 setopt CORRECT_ALL
 autoload -Uz compinit && compinit
 
+# History
+export HISTFILE="$HOME/.history"
+export HISTSIZE=1000000
+export SAVEHIST=$HISTSIZE
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+
 # GNU sed
 path+=/opt/homebrew/opt/gnu-sed/libexec/gnubin
 
@@ -31,10 +38,18 @@ PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}${PWD/#$HOME/~}%F{reset} '
 export EDITOR=/opt/homebrew/bin/nvim
 
 # Vim keybindings in terminal
-bindkey -v
+#bindkey -v
 # avoid the annoying backspace/delete issue 
 # where backspace stops deleting characters
-bindkey -v '^?' backward-delete-char
+#bindkey -v '^?' backward-delete-char
+
+# Open with vim
+zle -N edit-file
+edit-file () {
+  BUFFER="vim $BUFFER"
+  zle accept-line "$@"
+}
+bindkey '\C-k' edit-file
 
 # Gcloud
 . /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
@@ -90,3 +105,4 @@ alias g='git'
 alias p='pnpm'
 alias px='pnpm dlx'
 alias k=kubectl
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

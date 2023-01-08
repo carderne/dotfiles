@@ -1,4 +1,125 @@
 -- -----------------------------------------------------------------------------------------------
+-- Plugin installation
+-- -----------------------------------------------------------------------------------------------
+-- Automatically install Packer if it isn't installed
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd("packadd packer.nvim")
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+require("packer").startup(function(use)
+  use("wbthomason/packer.nvim")
+
+  -- Gruvbox theme with Treesitter support
+  use({ "ellisonleao/gruvbox.nvim" })
+
+  -- Used by LuaLine and nvim-tree
+  use({ "kyazdani42/nvim-web-devicons" })
+
+  -- Pretty indentation lines
+  use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.2" })
+
+  -- Commenting tool
+  use({ "numToStr/Comment.nvim", commit = "7bb563f" })
+
+  -- Status line at the bottom
+  use({ "nvim-lualine/lualine.nvim", commit = "32a7382" })
+
+  -- File browser
+  use({ "nvim-tree/nvim-tree.lua", commit = "bac962c" })
+
+  -- Coq
+  use({ "ms-jpq/coq_nvim", branch = "coq", commit = "6ca8641" })
+  use({ "ms-jpq/coq.artifacts", branch = "artifacts", commit = "9d90bbf" })
+
+  -- LSP (The rest is configured in lua/lsp.lua)
+  use({ "nvim-lua/plenary.nvim", commit = "bb44479" }) -- used by stuff below
+  use({ "williamboman/mason.nvim", commit = "dac1093" })
+  use({ "williamboman/mason-lspconfig.nvim", commit = "aa25b41" })
+  use({ "neovim/nvim-lspconfig", commit = "e69978a" })
+  use({ "jose-elias-alvarez/null-ls.nvim", commit = "d09d7d8" })
+  use({ "jay-babu/mason-null-ls.nvim", commit = "1fcf055" })
+
+  -- TreeSitter
+  use({ "nvim-treesitter/nvim-treesitter", commit = "3e31620" })
+
+  -- FZF
+  use({ "junegunn/fzf", run = ":call fzf#install()", tag = "0.35.1" })
+  use({ "junegunn/fzf.vim", commit = "0f03107" })
+
+  -- -- Neogit
+  -- use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", commit = "84cf7ef" })
+
+  -- gitsigns
+  use({ "lewis6991/gitsigns.nvim", tag = "v0.6" })
+
+  -- ChatGPT
+  use({
+    "jackMort/ChatGPT.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  })
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then
+    require("packer").sync()
+  end
+end)
+
+-- -----------------------------------------------------------------------------------------------
+-- Plugin config
+-- -----------------------------------------------------------------------------------------------
+-- Configure some of the simpler plugins
+require("nvim-tree").setup()
+require("Comment").setup()
+require("lualine").setup({
+  sections = {
+    lualine_a = {},
+    lualine_b = { "branch", "diff", "diagnostics" },
+    lualine_c = { { "filename", path = 1 } },
+    lualine_x = {},
+    lualine_y = { "progress" },
+    lualine_z = { "location" },
+  },
+})
+require("nvim-treesitter.configs").setup({
+  -- A list of parser names, or "all"
+  ensure_installed = {
+    "bash",
+    "git_rebase",
+    "gitcommit",
+    "python",
+    "lua",
+    "typescript",
+    "terraform",
+    "yaml",
+    "sql",
+    "html",
+    "vim",
+  },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+})
+-- require("neogit").setup()
+require("gitsigns").setup({ current_line_blame = true })
+require("chatgpt").setup()
+
+-- -----------------------------------------------------------------------------------------------
 -- General configuration
 -- -----------------------------------------------------------------------------------------------
 -- Basic settings
@@ -12,6 +133,9 @@ vim.opt.spelllang = "en_gb"
 -- use nvim-tree instead
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Use system clipboard
+vim.opt.clipboard = "unnamed"
 
 -- Display settings
 vim.opt.termguicolors = true
@@ -124,116 +248,6 @@ vim.keymap.set("n", "<leader>g", ":GFiles<CR>")
 -- ChatGPT
 vim.keymap.set("n", "<leader>cg", ":ChatGPT<CR>")
 vim.keymap.set("n", "<leader>cf", ":ChatGPTEditWithInstructions<CR>")
-
--- -----------------------------------------------------------------------------------------------
--- Plugin installation
--- -----------------------------------------------------------------------------------------------
--- Automatically install Packer if it isn't installed
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd("packadd packer.nvim")
-    return true
-  end
-  return false
-end
-
-local packer_bootstrap = ensure_packer()
-
-require("packer").startup(function(use)
-  use("wbthomason/packer.nvim")
-
-  -- Gruvbox theme with Treesitter support
-  use({ "ellisonleao/gruvbox.nvim" })
-
-  -- Used by LuaLine and nvim-tree
-  use({ "kyazdani42/nvim-web-devicons" })
-
-  -- Pretty indentation lines
-  use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.2" })
-
-  -- Commenting tool
-  use({ "numToStr/Comment.nvim", commit = "7bb563f" })
-
-  -- Status line at the bottom
-  use({ "nvim-lualine/lualine.nvim", commit = "32a7382" })
-
-  -- File browser
-  use({ "nvim-tree/nvim-tree.lua", commit = "bac962c" })
-
-  -- Coq
-  use({ "ms-jpq/coq_nvim", branch = "coq", commit = "6ca8641" })
-  use({ "ms-jpq/coq.artifacts", branch = "artifacts", commit = "9d90bbf" })
-
-  -- LSP (The rest is configured in lua/lsp.lua)
-  use({ "nvim-lua/plenary.nvim", commit = "bb44479" }) -- used by stuff below
-  use({ "williamboman/mason.nvim", commit = "dac1093" })
-  use({ "williamboman/mason-lspconfig.nvim", commit = "aa25b41" })
-  use({ "neovim/nvim-lspconfig", commit = "e69978a" })
-  use({ "jose-elias-alvarez/null-ls.nvim", commit = "d09d7d8" })
-  use({ "jay-babu/mason-null-ls.nvim", commit = "1fcf055" })
-
-  -- TreeSitter
-  use({ "nvim-treesitter/nvim-treesitter", tag = "v0.8.1" })
-
-  -- FZF
-  use({ "junegunn/fzf", run = ":call fzf#install()", tag = "0.35.1" })
-  use({ "junegunn/fzf.vim", commit = "0f03107" })
-
-  -- ChatGPT
-  use({
-    "jackMort/ChatGPT.nvim",
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  })
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require("packer").sync()
-  end
-end)
-
--- Configure some of the simpler plugins
-require("nvim-tree").setup()
-require("Comment").setup()
-require("lualine").setup({
-  sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { { "filename", path = 1 } },
-    lualine_x = { "encoding", "fileformat", "filetype" },
-    lualine_y = { "progress" },
-    lualine_z = { "location" },
-  },
-})
-require("nvim-treesitter.configs").setup({
-  -- A list of parser names, or "all"
-  ensure_installed = {
-    "bash",
-    "git_rebase",
-    "gitcommit",
-    "python",
-    "lua",
-    "typescript",
-    "terraform",
-    "yaml",
-    "sql",
-    "html",
-    "vim",
-  },
-  sync_install = false,
-  auto_install = true,
-  highlight = {
-    enable = true,
-  },
-})
-require("chatgpt").setup()
 
 -- -----------------------------------------------------------------------------------------------
 -- LSP stuff

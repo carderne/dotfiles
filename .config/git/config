@@ -1,8 +1,15 @@
+[user]
+	name = Chris Arderne
+
+[include]
+  path = ~/.config/git/work
 [includeIf "gitdir:~/Documents/"]
-  path = .gitconfig_personal
+  path = ~/.config/git/personal
+
 [core]
 	editor = nvim
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
+
 [diff]
 	tool = vimdiff
 [merge]
@@ -12,5 +19,6 @@
 [alias]
 	lo = log --all --decorate --graph --oneline
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	pushfwl = push --force-with-lease
 [init]
 	defaultBranch = main
