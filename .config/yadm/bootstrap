@@ -10,7 +10,7 @@ if [ "$system_type" = "Darwin" ]; then
   fi
 
   # Install Homebrew bundle
-  brewfile="$HOME/bits/Brewfile"
+  brewfile="$HOME/.config/homebrew/Brewfile"
   if [ -f $brewfile ]; then
     echo "Updating homebrew bundle"
     brew bundle --file=$brewfile
