@@ -1,0 +1,8 @@
+# JupyterLab
+# Note: to add venv to Jupyter:
+#   pip install ipykernel
+#   python -m ipykernel install --user --name=foo
+# Remove: jupyter kernelspec uninstall foo
+jupyterlab
+jupyterlab_code_formatter
+jupyterlab_vim
