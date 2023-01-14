@@ -50,26 +50,21 @@ require("packer").startup(function(use)
 
   -- TreeSitter
   use({ "nvim-treesitter/nvim-treesitter", commit = "3e31620" })
+  use({ "nvim-treesitter/nvim-treesitter-context", commit = "cacee48" })
+
+  -- register peekaboo
+  use({ "junegunn/vim-peekaboo", commit = "cc4469c" })
 
   -- FZF
   use({ "junegunn/fzf", run = ":call fzf#install()", tag = "0.35.1" })
   use({ "junegunn/fzf.vim", commit = "0f03107" })
 
-  -- -- Neogit
-  -- use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", commit = "84cf7ef" })
+  -- Neogit
+  use({ "sindrets/diffview.nvim", commit = "18d88c8" })
+  use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", commit = "84cf7ef" })
 
   -- gitsigns
   use({ "lewis6991/gitsigns.nvim", tag = "v0.6" })
-
-  -- ChatGPT
-  use({
-    "jackMort/ChatGPT.nvim",
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -83,7 +78,9 @@ end)
 -- -----------------------------------------------------------------------------------------------
 -- Configure some of the simpler plugins
 require("nvim-tree").setup()
+
 require("Comment").setup()
+
 require("lualine").setup({
   sections = {
     lualine_a = {},
@@ -94,6 +91,7 @@ require("lualine").setup({
     lualine_z = { "location" },
   },
 })
+
 require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
   ensure_installed = {
@@ -115,9 +113,13 @@ require("nvim-treesitter.configs").setup({
     enable = true,
   },
 })
--- require("neogit").setup()
+require("neogit").setup({
+  -- disable_signs = true,
+  integrations = {
+    diffview = true,
+  },
+})
 require("gitsigns").setup({ current_line_blame = true })
-require("chatgpt").setup()
 
 -- -----------------------------------------------------------------------------------------------
 -- General configuration
@@ -252,22 +254,26 @@ vim.keymap.set("n", "<leader>cf", ":ChatGPTEditWithInstructions<CR>")
 -- -----------------------------------------------------------------------------------------------
 -- LSP stuff
 -- -----------------------------------------------------------------------------------------------
+-- List of LSP servers to install with Mason and activate in LspConfig
+local lsp_servers = {
+  pyright = {},
+  ruff_lsp = {},
+  eslint = {},
+  jsonls = {},
+  tailwindcss = {},
+  tsserver = {},
+  terraformls = {},
+  tflint = {},
+  sumneko_lua = { Lua = { diagnostics = { globals = { "vim" } } } },
+  yamlls = {},
+}
 -- Setup Mason and auto-install some LSPs
 -- Mason handles the actual installations,
 -- while mason-lspconfig does the automatation
 -- and linking with neovim-lspconfig
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = {
-    "pyright",
-    "ruff_lsp",
-    "eslint",
-    "tsserver",
-    "terraformls",
-    "tflint",
-    "sumneko_lua",
-    "yamlls",
-  },
+  ensure_installed = lsp_servers,
   automatic_installation = true,
 })
 
@@ -305,17 +311,7 @@ local coq = require("coq")
 -- by `setup_handlers()`, but the LSP servers need to be
 -- manually set up here. Each one is setup() and COQ is
 -- activated for them at the same time.
-local servers = {
-  pyright = {},
-  ruff_lsp = {},
-  tsserver = {},
-  eslint = {},
-  terraformls = {},
-  tflint = {},
-  sumneko_lua = { Lua = { diagnostics = { globals = { "vim" } } } },
-  yamlls = {},
-}
-for lsp, settings in pairs(servers) do
+for lsp, settings in pairs(lsp_servers) do
   require("lspconfig")[lsp].setup(coq.lsp_ensure_capabilities({
     on_attach = function(_, buffer)
       server_maps({ buffer = buffer })
