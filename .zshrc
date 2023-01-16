@@ -63,6 +63,9 @@ source <(kubectl completion zsh | sed s/kubectl/k/g)
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
+# Ripgrep
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
+
 # Find and replace
 rgr() {( set -e
     git status
@@ -84,6 +87,12 @@ function t() {
     fi
   done
 }
+
+# Open rg results in vim
+virg() {( set -e
+  nvim -o $(rg -l $1)
+)}
+
 
 # Aliases
 alias ls='ls --color=auto'

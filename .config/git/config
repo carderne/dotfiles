@@ -22,6 +22,7 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pushfwl = push --force-with-lease
 
+  co = checkout
   amend = commit --amend
   dc = diff --cached
   last = log -1 HEAD
