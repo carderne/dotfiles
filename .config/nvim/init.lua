@@ -52,9 +52,6 @@ require("packer").startup(function(use)
   use({ "nvim-treesitter/nvim-treesitter", commit = "3e31620" })
   use({ "nvim-treesitter/nvim-treesitter-context", commit = "cacee48" })
 
-  -- register peekaboo
-  use({ "junegunn/vim-peekaboo", commit = "cc4469c" })
-
   -- FZF
   use({ "junegunn/fzf", run = ":call fzf#install()", tag = "0.35.1" })
   use({ "junegunn/fzf.vim", commit = "0f03107" })
@@ -79,7 +76,11 @@ end)
 -- Configure some of the simpler plugins
 require("nvim-tree").setup()
 
-require("Comment").setup()
+require("Comment").setup({
+  toggler = {
+    line = "<C-/>",
+  },
+})
 
 require("lualine").setup({
   sections = {
@@ -94,25 +95,17 @@ require("lualine").setup({
 
 require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
-  ensure_installed = {
-    "bash",
-    "git_rebase",
-    "gitcommit",
-    "python",
-    "lua",
-    "typescript",
-    "terraform",
-    "yaml",
-    "sql",
-    "html",
-    "vim",
-  },
+  ensure_installed = "all",
   sync_install = false,
   auto_install = true,
   highlight = {
     enable = true,
   },
 })
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
+
 require("neogit").setup({
   -- disable_signs = true,
   integrations = {
@@ -184,21 +177,24 @@ vim.opt.listchars = {
 vim.opt.list = true
 -- vim.fn.matchadd("error", [[\s\+$]])
 
--- Spell check certain file types
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "latex", "tex", "md", "markdown" },
-  command = "setlocal spell",
-})
-
 -- -----------------------------------------------------------------------------------------------
 -- Keymap settings
 -- -----------------------------------------------------------------------------------------------
+-- Basic keys
+vim.g.mapleader = ","
+vim.keymap.set("n", "<space>", ":")
+vim.keymap.set("n", "<leader>ec", ":e $MYVIMRC<CR>")
+
 -- Easier redo
 vim.keymap.set("n", "q", "<C-r>")
 
--- Change leader key and use space for :
-vim.g.mapleader = ","
--- set("n", "<space>", ":")
+-- Search navigation
+-- n is always forward, N is always backward
+-- ' is now forward and ; is backward
+vim.keymap.set("n", "n", "v:searchforward ? 'n' : 'N'", { expr = true })
+vim.keymap.set("n", "N", "v:searchforward ? 'N' : 'n'", { expr = true })
+vim.keymap.set("n", ";", "getcharsearch().forward ? ',' : ';'", { expr = true })
+vim.keymap.set("n", "'", "getcharsearch().forward ? ';' : ','", { expr = true })
 
 -- Search and Replace
 vim.keymap.set("n", "<leader>h", ":%s/")
@@ -319,3 +315,24 @@ for lsp, settings in pairs(lsp_servers) do
     settings = settings,
   }))
 end
+
+-- -----------------------------------------------------------------------------------------------
+-- Filetype-specific settings
+-- -----------------------------------------------------------------------------------------------
+
+-- Spell check certain file types
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "latex", "tex", "md", "markdown" },
+  callback = function()
+    vim.opt.spell = true
+    vim.opt.wrap = true
+    vim.opt.linebreak = true
+  end,
+})
+
+-- Beancount
+vim.filetype.add({
+  extension = {
+    bean = "beancount",
+  },
+})
