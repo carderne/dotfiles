@@ -21,12 +21,11 @@
 	lo = log --all --decorate --graph --oneline
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pushfwl = push --force-with-lease
-
   co = checkout
+  s = status
   amend = commit --amend
   dc = diff --cached
   last = log -1 HEAD
-  sync = pull --rebase
   unstage = reset HEAD --
 
 [init]

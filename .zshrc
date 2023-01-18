@@ -106,7 +106,8 @@ alias vi='vim'
 alias vimdiff='nvim -d'
 
 alias o='open'
-alias jup='~/.pyenv/shims/python -m jupyter lab  --notebook-dir ~'
+alias jup='~/.pyenv/shims/python -m jupyter lab --port=9999 --notebook-dir ~'
+alias rg="\rg --ignore-file ~/.config/ripgrep/ignore"
 alias rgp='rg -tpy'
 alias space='du -h | sort -hr | less'
 
