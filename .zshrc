@@ -12,9 +12,6 @@ export SAVEHIST=$HISTSIZE
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
-# GNU sed
-path+=/opt/homebrew/opt/gnu-sed/libexec/gnubin
-
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -68,9 +65,9 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
 # Find and replace
 rgr() {( set -e
-    git status
+    git status > /dev/null
     files=$(rg -l "$1")
-    echo $files | xargs sed -i "s/$1/$2/g"
+    echo $files | xargs sed -i '' "s/$1/$2/g"
     git diff $files
 )}
 
