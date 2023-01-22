@@ -6,3 +6,8 @@ How to use:
 2. `brew install yadm`
 3. `yadm clone git@github.com:carderne/.dotfiles.git`
 4. `yadm bootstrap`
+
+### Create Brew dump
+```bash
+brew bundle dump -f --file .config/homebrew/Brewfile
+```
