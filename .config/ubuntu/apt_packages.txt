@@ -1,5 +1,4 @@
 # A list of useful things to install with apt
-awscli
 baobab
 bat
 calibre
@@ -7,14 +6,15 @@ dconf-editor
 entr
 
 evolution
-hunspell-es
 
 exiv2
 fd-find
 fzf
+
 gnome-calendar
 gnome-sushi
 gnome-tweaks
+gnome-shell-extension-prefs
 
 libgdal-dev
 gdal-bin
