@@ -4,6 +4,7 @@ setopt NO_CASE_GLOB
 setopt CORRECT
 setopt CORRECT_ALL
 autoload -Uz compinit && compinit
+cdpath=($HOME $HOME/tl/app/apps $HOME/tl/services)
 
 # History
 export HISTFILE="$HOME/.history"
@@ -14,9 +15,12 @@ setopt hist_ignore_space
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+command -v pyenv >/dev/null || path+=("$PYENV_ROOT/bin")
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# Postgres
+path+=('/opt/homebrew/opt/libpq/bin' '/opt/homebrew/opt/postgresql@15/bin')
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -112,4 +116,5 @@ alias g='git'
 alias p='pnpm'
 alias px='pnpm dlx'
 alias k=kubectl
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+alias rm='echo Use trash'
