@@ -1,8 +1,8 @@
 # zsh settings
 setopt AUTO_CD
 setopt NO_CASE_GLOB
-setopt CORRECT
-setopt CORRECT_ALL
+#setopt CORRECT
+#setopt CORRECT_ALL
 autoload -Uz compinit && compinit
 cdpath=($HOME $HOME/tl/app/apps $HOME/tl/services)
 
@@ -20,7 +20,10 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # Postgres
-path+=('/opt/homebrew/opt/libpq/bin' '/opt/homebrew/opt/postgresql@15/bin')
+path+=('/opt/homebrew/opt/libpq/bin')
+
+# does postgres need to be at the _start_ of PATH?
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -71,8 +74,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 rgr() {( set -e
     git status > /dev/null
     files=$(rg -l "$1")
-    echo $files | xargs sed -i '' "s/$1/$2/g"
-    git diff $files
+    echo $files | xargs sed -i '' "s|$1|$2|g"
 )}
 
 # Directory browsing
@@ -117,4 +119,4 @@ alias p='pnpm'
 alias px='pnpm dlx'
 alias k=kubectl
 
-alias rm='echo Use trash'
+# alias rm='echo Use trash'

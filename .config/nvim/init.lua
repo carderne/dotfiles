@@ -177,6 +177,12 @@ vim.opt.listchars = {
 vim.opt.list = true
 -- vim.fn.matchadd("error", [[\s\+$]])
 
+-- close quickfix menu after selecting choice
+vim.api.nvim_create_autocmd(
+  "FileType", {
+  pattern={"qf"},
+  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]})
+
 -- -----------------------------------------------------------------------------------------------
 -- Keymap settings
 -- -----------------------------------------------------------------------------------------------
