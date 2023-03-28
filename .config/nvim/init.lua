@@ -25,43 +25,43 @@ require("packer").startup(function(use)
   use({ "kyazdani42/nvim-web-devicons" })
 
   -- Pretty indentation lines
-  use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.2" })
+  use({ "lukas-reineke/indent-blankline.nvim" })
 
   -- Commenting tool
-  use({ "numToStr/Comment.nvim", commit = "7bb563f" })
+  use({ "numToStr/Comment.nvim" })
 
   -- Status line at the bottom
-  use({ "nvim-lualine/lualine.nvim", commit = "32a7382" })
+  use({ "nvim-lualine/lualine.nvim" })
 
   -- File browser
-  use({ "nvim-tree/nvim-tree.lua", commit = "bac962c" })
+  use({ "nvim-tree/nvim-tree.lua" })
 
   -- Coq
-  use({ "ms-jpq/coq_nvim", branch = "coq", commit = "6ca8641" })
-  use({ "ms-jpq/coq.artifacts", branch = "artifacts", commit = "9d90bbf" })
+  use({ "ms-jpq/coq_nvim", branch = "coq" })
+  use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
 
   -- LSP (The rest is configured in lua/lsp.lua)
-  use({ "nvim-lua/plenary.nvim", commit = "bb44479" }) -- used by stuff below
-  use({ "williamboman/mason.nvim", commit = "dac1093" })
-  use({ "williamboman/mason-lspconfig.nvim", commit = "aa25b41" })
-  use({ "neovim/nvim-lspconfig", commit = "e69978a" })
-  use({ "jose-elias-alvarez/null-ls.nvim", commit = "d09d7d8" })
-  use({ "jay-babu/mason-null-ls.nvim", commit = "1fcf055" })
+  use({ "nvim-lua/plenary.nvim" }) -- used by stuff below
+  use({ "williamboman/mason.nvim" })
+  use({ "williamboman/mason-lspconfig.nvim" })
+  use({ "neovim/nvim-lspconfig" })
+  use({ "jose-elias-alvarez/null-ls.nvim" })
+  use({ "jay-babu/mason-null-ls.nvim" })
 
   -- TreeSitter
-  use({ "nvim-treesitter/nvim-treesitter", commit = "3e31620" })
-  use({ "nvim-treesitter/nvim-treesitter-context", commit = "cacee48" })
+  use({ "nvim-treesitter/nvim-treesitter" })
+  use({ "nvim-treesitter/nvim-treesitter-context" })
 
   -- FZF
-  use({ "junegunn/fzf", run = ":call fzf#install()", tag = "0.35.1" })
-  use({ "junegunn/fzf.vim", commit = "0f03107" })
+  use({ "junegunn/fzf", run = ":call fzf#install()" })
+  use({ "junegunn/fzf.vim" })
 
   -- Neogit
-  use({ "sindrets/diffview.nvim", commit = "18d88c8" })
-  use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim", commit = "84cf7ef" })
+  use({ "sindrets/diffview.nvim" })
+  use({ "TimUntersberger/neogit" })
 
   -- gitsigns
-  use({ "lewis6991/gitsigns.nvim", tag = "v0.6" })
+  use({ "lewis6991/gitsigns.nvim" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -142,7 +142,7 @@ vim.opt.wrap = false
 vim.cmd("colorscheme gruvbox")
 
 -- Title
-vim.opt.title = true -- set the title of window to the value of the titlestring
+vim.opt.title = true                       -- set the title of window to the value of the titlestring
 vim.opt.titlestring = "%<%F%=%l/%L - nvim" -- what the title of the window will be set to
 
 -- Persist undo
@@ -178,10 +178,10 @@ vim.opt.list = true
 -- vim.fn.matchadd("error", [[\s\+$]])
 
 -- close quickfix menu after selecting choice
-vim.api.nvim_create_autocmd(
-  "FileType", {
-  pattern={"qf"},
-  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "qf" },
+  command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
+})
 
 -- -----------------------------------------------------------------------------------------------
 -- Keymap settings
@@ -266,7 +266,7 @@ local lsp_servers = {
   tsserver = {},
   terraformls = {},
   tflint = {},
-  sumneko_lua = { Lua = { diagnostics = { globals = { "vim" } } } },
+  lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
   yamlls = {},
 }
 -- Setup Mason and auto-install some LSPs
