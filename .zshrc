@@ -120,3 +120,6 @@ alias px='pnpm dlx'
 alias k=kubectl
 
 # alias rm='echo Use trash'
+
+# Created by `pipx` on 2023-02-22 10:38:13
+export PATH="$PATH:/Users/chris/.local/bin"
