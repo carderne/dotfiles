@@ -43,6 +43,7 @@ brew "dopplerhq/cli/doppler", link: false
 brew "hashicorp/tap/terraform"
 brew "saulpw/vd/visidata"
 brew "supabase/tap/supabase"
+cask "1password"
 cask "datagrip"
 cask "firefox"
 cask "font-hack-nerd-font"

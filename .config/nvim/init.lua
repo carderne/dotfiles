@@ -267,7 +267,6 @@ local lsp_servers = {
   terraformls = {},
   tflint = {},
   lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
-  yamlls = {},
 }
 -- Setup Mason and auto-install some LSPs
 -- Mason handles the actual installations,
@@ -295,9 +294,9 @@ require("mason-null-ls").setup({
   },
   automatic_installation = true,
   automatic_setup = true,
+  handlers = {},
 })
 require("null-ls").setup()
-require("mason-null-ls").setup_handlers()
 
 -- COQ autocomplete needed to be set up here
 vim.g.coq_settings = {

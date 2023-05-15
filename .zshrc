@@ -123,3 +123,11 @@ alias k=kubectl
 
 # Created by `pipx` on 2023-02-22 10:38:13
 export PATH="$PATH:/Users/chris/.local/bin"
+
+# pnpm
+export PNPM_HOME="/Users/chris/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
