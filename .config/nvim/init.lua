@@ -258,6 +258,7 @@ vim.keymap.set("n", "<leader>cf", ":ChatGPTEditWithInstructions<CR>")
 -- -----------------------------------------------------------------------------------------------
 -- List of LSP servers to install with Mason and activate in LspConfig
 local lsp_servers = {
+  gopls = {},
   pyright = {},
   ruff_lsp = {},
   eslint = {},

@@ -29,7 +29,11 @@ export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # asdf
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+case `uname` in
+  Darwin)
+    . /opt/homebrew/opt/asdf/libexec/asdf.sh
+  ;;
+esac
 
 # Prompt
 autoload -Uz vcs_info
@@ -56,12 +60,12 @@ edit-file () {
 bindkey '\C-k' edit-file
 
 # Gcloud
-. /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-. /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+#. /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+#. /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
 # kubectl
-source <(kubectl completion zsh)
-source <(kubectl completion zsh | sed s/kubectl/k/g)
+#source <(kubectl completion zsh)
+#source <(kubectl completion zsh | sed s/kubectl/k/g)
 
 # Terraform
 autoload -U +X bashcompinit && bashcompinit
@@ -119,15 +123,19 @@ alias p='pnpm'
 alias px='pnpm dlx'
 alias k=kubectl
 
-# alias rm='echo Use trash'
-
 # Created by `pipx` on 2023-02-22 10:38:13
 export PATH="$PATH:/Users/chris/.local/bin"
 
-# pnpm
-export PNPM_HOME="/Users/chris/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+case `uname` in
+  Darwin)
+    export PNPM_HOME="/Users/chris/Library/pnpm"
+  ;;
+  Linux)
+    export PNPM_HOME="/home/chris/.local/share/pnpm"
+  ;;
 esac
-# pnpm end
+export PATH="$PNPM_HOME:$PATH"
+
+# Go
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"

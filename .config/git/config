@@ -27,6 +27,7 @@
   dc = diff --cached
   last = log -1 HEAD
   unstage = reset HEAD --
+  ho = config --unset-all core.hooksPath
 
 [init]
 	defaultBranch = main
