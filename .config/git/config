@@ -5,6 +5,8 @@
   path = ~/.config/git/work
 [includeIf "gitdir:~/Documents/"]
   path = ~/.config/git/personal
+[includeIf "gitdir:~/Work/"]
+  path = ~/.config/git/other
 
 [core]
 	editor = nvim
