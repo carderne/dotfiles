@@ -110,8 +110,6 @@ vim.keymap.set("n", "<leader>g", ":GFiles<CR>")
 -- -----------------------------------------------------------------------------------------------
 
 local plugins = {
-	{ "wbthomason/packer.nvim" },
-
 	-- Gruvbox theme with Treesitter support
 	{ "ellisonleao/gruvbox.nvim" },
 
