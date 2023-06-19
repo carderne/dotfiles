@@ -102,9 +102,6 @@ vim.keymap.set("n", "<C-w>j", ":resize -15<CR>")
 vim.keymap.set("n", "<C-w>h", ":vertical:resize -15<CR>")
 vim.keymap.set("n", "<C-w>l", ":vertical:resize +15<CR>")
 
--- fzf
-vim.keymap.set("n", "<leader>g", ":GFiles<CR>")
-
 -- -----------------------------------------------------------------------------------------------
 -- Plugin list
 -- -----------------------------------------------------------------------------------------------
@@ -168,13 +165,16 @@ local plugins = {
 	{ "nvim-treesitter/nvim-treesitter-context" },
 	{ "nvim-treesitter/playground" },
 
-	-- FZF
-	{ "junegunn/fzf" },
-	{ "junegunn/fzf.vim" },
-
-	-- Neogit
-	-- { "sindrets/diffview.nvim" },
-	-- { "TimUntersberger/neogit" },
+	-- Telescope
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 
 	-- gitsigns
 	{ "lewis6991/gitsigns.nvim" },
@@ -203,7 +203,6 @@ require("lazy").setup(plugins)
 -- -----------------------------------------------------------------------------------------------
 vim.cmd("colorscheme gruvbox")
 
--- Configure some of the simpler plugins
 require("nvim-tree").setup()
 
 vim.cmd([[highlight IndentBlanklineIndent1 guifg=#ebdbb2 gui=nocombine]])
@@ -233,6 +232,14 @@ require("lualine").setup({
 	},
 })
 
+local tele_builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
+vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
+
+-- -----------------------------------------------------------------------------------------------
+-- Treesitter
+-- -----------------------------------------------------------------------------------------------
 require("nvim-treesitter.configs").setup({
 	-- A list of parser names, or "all"
 	-- https://github.com/nvim-treesitter/nvim-treesitter/tree/master#supported-languages
@@ -281,8 +288,11 @@ require("gitsigns").setup({ current_line_blame = true })
 -- -----------------------------------------------------------------------------------------------
 local lsp = require("lsp-zero").preset({ name = "recommended" })
 lsp.on_attach(function(client, bufnr)
-	lsp.default_keymaps({ buffer = bufnr })
+  local opts = {buffer = bufnr}
+	lsp.default_keymaps(opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+	vim.keymap.set("n", "gd", tele_builtin.lsp_definitions, opts)
+	vim.keymap.set("n", "gr", tele_builtin.lsp_references, opts)
 end)
 
 lsp.ensure_installed({
