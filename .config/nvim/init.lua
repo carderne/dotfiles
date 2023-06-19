@@ -189,6 +189,8 @@ local plugins = {
 
 	-- gitsigns
 	{ "lewis6991/gitsigns.nvim" },
+
+	{ "ggandor/leap.nvim" },
 }
 
 -- -----------------------------------------------------------------------------------------------
@@ -228,8 +230,15 @@ require("indent_blankline").setup({
 
 require("Comment").setup({
 	toggler = {
-		line = "<C-/>",
+		line = "gc",
 	},
+  opleader = {
+    line = "gc",
+  },
+  extra = nil,
+  mappings = {
+    extra = false,
+  },
 })
 
 require("lualine").setup({
@@ -248,6 +257,10 @@ vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
 vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
 
+require("gitsigns").setup({ current_line_blame = true })
+
+require("leap").add_default_mappings()
+
 -- -----------------------------------------------------------------------------------------------
 -- Treesitter
 -- -----------------------------------------------------------------------------------------------
@@ -255,7 +268,7 @@ require("nvim-treesitter.configs").setup({
 	-- A list of parser names, or "all"
 	-- https://github.com/nvim-treesitter/nvim-treesitter/tree/master#supported-languages
 	playground = {
-		enable = true,
+		enable = false,
 	},
 	ensure_installed = {
 		"c",
@@ -291,8 +304,6 @@ require("nvim-treesitter.configs").setup({
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
-
-require("gitsigns").setup({ current_line_blame = true })
 
 -- -----------------------------------------------------------------------------------------------
 -- LSP stuff
