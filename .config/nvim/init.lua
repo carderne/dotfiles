@@ -336,7 +336,7 @@ lsp.ensure_installed({
 	"yamlls",
 })
 
-lsp.format_mapping("fo", {
+lsp.format_mapping("<leader>fo", {
 	format_opts = {
 		async = true,
 		timeout_ms = 10000,
