@@ -176,6 +176,17 @@ local plugins = {
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
+	-- DAP
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			{ "mfussenegger/nvim-dap" },
+			{ "mfussenegger/nvim-dap-python" },
+			{ "jay-babu/mason-nvim-dap.nvim" },
+			{ "williamboman/mason.nvim" },
+		},
+	},
+
 	-- gitsigns
 	{ "lewis6991/gitsigns.nvim" },
 }
@@ -288,7 +299,7 @@ require("gitsigns").setup({ current_line_blame = true })
 -- -----------------------------------------------------------------------------------------------
 local lsp = require("lsp-zero").preset({ name = "recommended" })
 lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr}
+	local opts = { buffer = bufnr }
 	lsp.default_keymaps(opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "gd", tele_builtin.lsp_definitions, opts)
@@ -342,6 +353,31 @@ require("mason-null-ls").setup({
 	ensure_installed = nil,
 	automatic_installation = true,
 })
+
+-- -----------------------------------------------------------------------------------------------
+-- DAP
+-- -----------------------------------------------------------------------------------------------
+require("mason-nvim-dap").setup({
+	ensure_installed = { "python" },
+})
+
+require("dap-python").setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+
+local dap = require("dap")
+local dapui = require("dapui")
+dapui.setup()
+dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+dap.listeners.before.event_exited["dapui_config"] = dapui.close
+
+vim.keymap.set("n", "<leader>bb", dapui.toggle)
+vim.keymap.set("n", "<leader>B", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>bn", dap.continue)
+vim.keymap.set("n", "<leader>bl", dap.step_over)
+vim.keymap.set("n", "<leader>bj", dap.step_into)
+vim.keymap.set("n", "<leader>bk", dap.step_out)
+vim.keymap.set("n", "<leader>bh", dap.step_back)
+vim.keymap.set("n", "<leader>b.", dap.run_last)
 
 -- -----------------------------------------------------------------------------------------------
 -- Filetype-specific settings
