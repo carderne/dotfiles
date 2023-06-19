@@ -93,6 +93,7 @@ function t() {
       cd "${dir}"
     fi
   done
+  ls
 }
 
 # Open rg results in vim

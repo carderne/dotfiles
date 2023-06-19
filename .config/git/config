@@ -20,6 +20,7 @@
   path = nvim
 
 [alias]
+  ll = log --decorate --all --date=format-local:'%Y-%m-%d %H:%M:%S' --pretty=format:'%C(cyan)%h%Creset %C(black bold)%ad%Creset%C(auto)%d %s'
 	lo = log --all --decorate --graph --oneline
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pushfwl = push --force-with-lease
