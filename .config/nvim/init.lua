@@ -147,6 +147,9 @@ local plugins = {
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "L3MON4D3/LuaSnip" },
+			{ "hrsh7th/cmp-path" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 		},
 	},
 
@@ -232,13 +235,13 @@ require("Comment").setup({
 	toggler = {
 		line = "gc",
 	},
-  opleader = {
-    line = "gc",
-  },
-  extra = nil,
-  mappings = {
-    extra = false,
-  },
+	opleader = {
+		line = "gc",
+	},
+	extra = nil,
+	mappings = {
+		extra = false,
+	},
 })
 
 require("lualine").setup({
@@ -342,7 +345,7 @@ lsp.format_mapping("<leader>fo", {
 		timeout_ms = 10000,
 	},
 	servers = {
-		["null-ls"] = { "javascript", "typescript", "lua", "python", "go" },
+		["null-ls"] = { "javascript", "typescript", "lua", "python", "go", "json", "typescriptreact" },
 	},
 })
 
@@ -363,6 +366,27 @@ null_ls.setup({
 require("mason-null-ls").setup({
 	ensure_installed = nil,
 	automatic_installation = true,
+})
+
+local cmp = require("cmp")
+cmp.setup({
+	sources = {
+		{ name = "nvim_lsp_signature_help" },
+		{ name = "path", max_item_count = 4 },
+		{ name = "nvim_lsp", max_item_count = 4 },
+		{ name = "buffer", keyword_length = 3 },
+		{ name = "luasnip", keyword_length = 2 },
+	},
+	preselect = "item",
+	completion = {
+		-- autocomplete = false,
+		completeopt = "menu,menuone,noinsert",
+	},
+	mapping = {
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
+		-- ["<Tab>"] = cmp_action.tab_complete(),
+		-- ["<Tab>"] = cmp.mapping.complete(),
+	},
 })
 
 -- -----------------------------------------------------------------------------------------------
