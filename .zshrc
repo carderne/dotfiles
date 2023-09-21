@@ -4,7 +4,7 @@ setopt NO_CASE_GLOB
 #setopt CORRECT
 #setopt CORRECT_ALL
 autoload -Uz compinit && compinit
-cdpath=($HOME $HOME/tl/app/apps $HOME/tl/services)
+# cdpath=($HOME $HOME/tl/app/apps $HOME/tl/services)
 
 # History
 export HISTFILE="$HOME/.history"
@@ -111,6 +111,7 @@ alias lg='git ls-files'
 
 alias vim='nvim'
 alias vi='vim'
+alias v='vi .'
 alias vimdiff='nvim -d'
 
 alias o='open'
@@ -120,9 +121,12 @@ alias rgp='rg -tpy'
 alias space='du -h | sort -hr | less'
 
 alias g='git'
+alias gb='git branch --sort=-committerdate --color=always | head -8'
 alias p='pnpm'
 alias px='pnpm dlx'
 alias k=kubectl
+
+alias dr='doppler run --'
 
 # Created by `pipx` on 2023-02-22 10:38:13
 export PATH="$PATH:/Users/chris/.local/bin"
@@ -140,3 +144,9 @@ export PATH="$PNPM_HOME:$PATH"
 # Go
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
+
+# Cd
+cd tl 2>/dev/null
+
+# Gcloud
+alias gk='gcloud container clusters get-credentials --project translucent-dw-prod --zone europe-west2'
