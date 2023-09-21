@@ -7,5 +7,5 @@
 
 (assignment
   left: (identifier)
-  right: (string (string_content) @sql (#match? @sql "SELECT"))
+  right: (string (string_content) @sql (#match? @sql "SELECT|INSERT|WITH|CREATE"))
 ) @sql_implicit

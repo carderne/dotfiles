@@ -84,7 +84,7 @@ vim.keymap.set("n", "<leader>h", ":%s/")
 vim.keymap.set("n", "<leader>l", ":nohlsearch<CR><C-L>")
 
 -- nvim-tree
-vim.keymap.set("n", "<C-t>", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<C-t>", ":NvimTreeFocus<CR>")
 vim.keymap.set("n", "<C-f>", ":NvimTreeFindFile<CR>")
 vim.keymap.set("n", "<C-c>", ":NvimTreeClose<CR>")
 
@@ -166,6 +166,7 @@ local plugins = {
 		build = ":TSUpdate",
 	},
 	{ "nvim-treesitter/nvim-treesitter-context" },
+	{ "HiPhish/nvim-ts-rainbow2" },
 	{ "nvim-treesitter/playground" },
 
 	-- Telescope
@@ -256,7 +257,8 @@ require("lualine").setup({
 })
 
 local tele_builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
+-- vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
+vim.keymap.set("n", "<leader>ff", tele_builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
 
@@ -272,6 +274,12 @@ require("nvim-treesitter.configs").setup({
 	-- https://github.com/nvim-treesitter/nvim-treesitter/tree/master#supported-languages
 	playground = {
 		enable = false,
+	},
+	rainbow = {
+		enable = true,
+		query = "rainbow-parens",
+		-- Highlight the entire buffer all at once
+		strategy = require("ts-rainbow").strategy.global,
 	},
 	ensure_installed = {
 		"c",
@@ -338,6 +346,27 @@ lsp.ensure_installed({
 	"terraformls",
 	"yamlls",
 })
+
+-- lspconfig["pyright"].setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- 	settings = {
+-- 		python = {
+-- 			pythonPath = "/usr/bin/python3",
+-- 		},
+-- 		pyright = {},
+-- 	},
+-- })
+
+-- lsp.configure("pyright", {
+-- 	settings = {
+-- 		python = {
+-- 			venv = "events",
+-- 			venvPath = { "/Users/chris/.pyenv/versions" },
+-- 			extraPaths = { "/Users/chris/.pyenv/versions/tl_data/" },
+-- 		},
+-- 	},
+-- })
 
 lsp.format_mapping("<leader>fo", {
 	format_opts = {
