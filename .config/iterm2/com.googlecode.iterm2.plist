@@ -907,6 +907,8 @@
 	<false/>
 	<key>DoubleClickPerformsSmartSelection</key>
 	<true/>
+	<key>EnableDivisionView</key>
+	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x54-0x120000-0x11</key>
@@ -1107,6 +1109,8 @@ Maximize Active Pane</string>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
+	<key>HideTabNumber</key>
+	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
 	<key>MaxVertically</key>
@@ -1845,6 +1849,8 @@ Maximize Active Pane</string>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
+	<key>ShowPaneTitles</key>
+	<false/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
@@ -1853,6 +1859,10 @@ Maximize Active Pane</string>
 	<true/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>0</integer>
+	<key>TerminalMargin</key>
+	<integer>2</integer>
+	<key>TerminalVMargin</key>
+	<integer>2</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
