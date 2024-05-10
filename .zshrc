@@ -13,12 +13,6 @@ export SAVEHIST=$HISTSIZE
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || path+=("$PYENV_ROOT/bin")
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # Postgres
 path+=('/opt/homebrew/opt/libpq/bin')
 
@@ -125,6 +119,7 @@ alias gb='git branch --sort=-committerdate --color=always | head -8'
 alias p='pnpm'
 alias px='pnpm dlx'
 alias k=kubectl
+alias pye='source ~/.activate-pyenv'
 
 alias dr='doppler run --'
 
@@ -142,11 +137,8 @@ esac
 export PATH="$PNPM_HOME:$PATH"
 
 # Go
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 
 # Cd
-cd tl 2>/dev/null
-
-# Gcloud
-alias gk='gcloud container clusters get-credentials --project translucent-dw-prod --zone europe-west2'
+cd c 2>/dev/null
