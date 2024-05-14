@@ -196,15 +196,15 @@ local plugins = {
 	{ "lewis6991/gitsigns.nvim" },
 
 	-- NeoGit
-	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-			"sindrets/diffview.nvim", -- optional - Diff integration
-		},
-		config = true,
-	},
+	-- {
+	-- 	"NeogitOrg/neogit",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-telescope/telescope.nvim",
+	-- 		"sindrets/diffview.nvim", -- optional - Diff integration
+	-- 	},
+	-- 	config = true,
+	-- },
 
 	{ "ggandor/leap.nvim" },
 

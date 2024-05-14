@@ -13,11 +13,14 @@ export SAVEHIST=$HISTSIZE
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
-# Postgres
+# PATH
+## Postgres
 path+=('/opt/homebrew/opt/libpq/bin')
-
-# does postgres need to be at the _start_ of PATH?
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+path+=('/opt/homebrew/opt/postgresql@15/bin')
+## Cargo
+path+=('/home/chris/.cargo/bin')
+## Go
+path+=('/usr/local/go/bin')
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -123,9 +126,6 @@ alias pye='source ~/.activate-pyenv'
 
 alias dr='doppler run --'
 
-# Created by `pipx` on 2023-02-22 10:38:13
-export PATH="$PATH:/Users/chris/.local/bin"
-
 case `uname` in
   Darwin)
     export PNPM_HOME="/Users/chris/Library/pnpm"
@@ -138,7 +138,6 @@ export PATH="$PNPM_HOME:$PATH"
 
 # Go
 export GOPATH="$HOME/.go"
-export PATH="$GOPATH/bin:$PATH"
 
 # Cd
 cd c 2>/dev/null
