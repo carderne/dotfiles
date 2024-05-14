@@ -14,7 +14,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Use system clipboard
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 -- Display settings
 vim.opt.termguicolors = true
@@ -195,17 +195,16 @@ local plugins = {
 	-- gitsigns
 	{ "lewis6991/gitsigns.nvim" },
 
-  -- NeoGit
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "sindrets/diffview.nvim",        -- optional - Diff integration
-    },
-    config = true
-  },
-
+	-- NeoGit
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"sindrets/diffview.nvim", -- optional - Diff integration
+		},
+		config = true,
+	},
 
 	{ "ggandor/leap.nvim" },
 

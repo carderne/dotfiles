@@ -142,3 +142,18 @@ export PATH="$GOPATH/bin:$PATH"
 
 # Cd
 cd c 2>/dev/null
+
+ptex() {
+   echo $1.tex | entr -s "pdflatex --synctex=1 $1.tex && xdg-open $1.pdf"
+}
+
+# Linux ONLY
+if [[ "$(uname)" == "Linux" ]]; then
+  PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}box${PWD/#$HOME/~}%F{reset} '
+  rgr() {( set -e
+    git status > /dev/null
+    files=$(rg -l "$1")
+    echo $files | xargs sed -i "s|$1|$2|g"
+  )}
+  alias fd=fdfind
+fi
