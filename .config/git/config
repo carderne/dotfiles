@@ -1,12 +1,6 @@
 [user]
 	name = Chris Arderne
-
-[include]
-  path = ~/.config/git/work
-[includeIf "gitdir:~/Documents/"]
-  path = ~/.config/git/personal
-[includeIf "gitdir:~/Work/"]
-  path = ~/.config/git/other
+  email = chris@rdrn.me
 
 [core]
 	editor = nvim
