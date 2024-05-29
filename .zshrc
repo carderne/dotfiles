@@ -119,22 +119,8 @@ alias space='du -h | sort -hr | less'
 
 alias g='git'
 alias gb='git branch --sort=-committerdate --color=always | head -8'
-alias p='pnpm'
-alias px='pnpm dlx'
 alias k=kubectl
 alias pye='source ~/.activate-pyenv'
-
-alias dr='doppler run --'
-
-case `uname` in
-  Darwin)
-    export PNPM_HOME="/Users/chris/Library/pnpm"
-  ;;
-  Linux)
-    export PNPM_HOME="/home/chris/.local/share/pnpm"
-  ;;
-esac
-export PATH="$PNPM_HOME:$PATH"
 
 # Go
 export GOPATH="$HOME/.go"
