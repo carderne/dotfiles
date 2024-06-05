@@ -25,13 +25,6 @@ path+=('/usr/local/go/bin')
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# asdf
-case `uname` in
-  Darwin)
-    . /opt/homebrew/opt/asdf/libexec/asdf.sh
-  ;;
-esac
-
 # Prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -42,12 +35,6 @@ PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}${PWD/#$HOME/~}%F{reset} '
 # Editor
 export EDITOR=/opt/homebrew/bin/nvim
 
-# Vim keybindings in terminal
-#bindkey -v
-# avoid the annoying backspace/delete issue 
-# where backspace stops deleting characters
-#bindkey -v '^?' backward-delete-char
-
 # Open with vim
 zle -N edit-file
 edit-file () {
@@ -57,12 +44,12 @@ edit-file () {
 bindkey '\C-k' edit-file
 
 # Gcloud
-#. /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-#. /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+# . /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+# . /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
 # kubectl
-#source <(kubectl completion zsh)
-#source <(kubectl completion zsh | sed s/kubectl/k/g)
+# source <(kubectl completion zsh)
+# source <(kubectl completion zsh | sed s/kubectl/k/g)
 
 # Terraform
 autoload -U +X bashcompinit && bashcompinit
@@ -125,6 +112,9 @@ alias pye='source ~/.activate-pyenv'
 # Go
 export GOPATH="$HOME/.go"
 
+# Mise
+eval "$(mise activate zsh)"
+
 # Cd
 cd c 2>/dev/null
 
@@ -132,13 +122,17 @@ ptex() {
    echo $1.tex | entr -s "pdflatex --synctex=1 $1.tex && xdg-open $1.pdf"
 }
 
-# Linux ONLY
-if [[ "$(uname)" == "Linux" ]]; then
-  PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}box${PWD/#$HOME/~}%F{reset} '
-  rgr() {( set -e
-    git status > /dev/null
-    files=$(rg -l "$1")
-    echo $files | xargs sed -i "s|$1|$2|g"
-  )}
-  alias fd=fdfind
-fi
+# OS-specific
+case `uname` in
+  Darwin)
+  ;;
+  Linux)
+    PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}box${PWD/#$HOME/~}%F{reset} '
+    rgr() {( set -e
+      git status > /dev/null
+      files=$(rg -l "$1")
+      echo $files | xargs sed -i "s|$1|$2|g"
+    )}
+    alias fd=fdfind
+  ;;
+esac
