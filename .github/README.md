@@ -9,5 +9,5 @@ How to use:
 
 ### Create Brew dump
 ```bash
-brew bundle dump -f --file .config/homebrew/Brewfile
+brew bundle dump -f --file ~/.config/homebrew/Brewfile
 ```
