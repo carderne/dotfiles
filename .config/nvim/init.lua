@@ -60,6 +60,9 @@ vim.opt.listchars = {
 }
 vim.opt.list = true
 
+-- LSP
+vim.lsp.inlay_hint.enable() -- doesn't seem to do anything...
+
 -- -----------------------------------------------------------------------------------------------
 -- Keymap settings
 -- -----------------------------------------------------------------------------------------------
@@ -118,9 +121,6 @@ local plugins = {
 
 	-- Pretty indentation lines
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl" },
-
-	-- Commenting tool
-	{ "numToStr/Comment.nvim" },
 
 	-- Status line at the bottom
 	{ "nvim-lualine/lualine.nvim" },
@@ -250,19 +250,6 @@ require("ibl").setup({
 	-- scope = { enabled = false },
 })
 
-require("Comment").setup({
-	toggler = {
-		line = "gc",
-	},
-	opleader = {
-		line = "gc",
-	},
-	extra = nil,
-	mappings = {
-		extra = false,
-	},
-})
-
 require("lualine").setup({
 	sections = {
 		lualine_a = {},
@@ -381,7 +368,7 @@ lsp_zero.format_mapping("<leader>fo", {
 local null_ls = require("null-ls")
 null_ls.setup({
 	sources = {
-		null_ls.builtins.formatting.prettierd,
+		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.stylua,
 		-- null_ls.builtins.formatting.jq,
 		null_ls.builtins.formatting.gofmt,
