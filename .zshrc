@@ -35,22 +35,6 @@ PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}${PWD/#$HOME/~}%F{reset} '
 # Editor
 export EDITOR=/opt/homebrew/bin/nvim
 
-# Open with vim
-zle -N edit-file
-edit-file () {
-  BUFFER="vim $BUFFER"
-  zle accept-line "$@"
-}
-bindkey '\C-k' edit-file
-
-# Gcloud
-# . /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-# . /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-
-# kubectl
-# source <(kubectl completion zsh)
-# source <(kubectl completion zsh | sed s/kubectl/k/g)
-
 # Terraform
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
