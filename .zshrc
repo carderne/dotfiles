@@ -83,7 +83,7 @@ alias v='vi .'
 alias vimdiff='nvim -d'
 
 alias o='open'
-alias jup='~/.pyenv/shims/python -m jupyter lab --port=9999 --notebook-dir ~'
+alias jup='python -m jupyter lab --port=9999 --notebook-dir ~'
 alias rg="\rg --ignore-file ~/.config/ripgrep/ignore"
 alias rgp='rg -tpy'
 alias space='du -h | sort -hr | less'
@@ -91,7 +91,6 @@ alias space='du -h | sort -hr | less'
 alias g='git'
 alias gb='git branch --sort=-committerdate --color=always | head -8'
 alias k=kubectl
-alias pye='source ~/.activate-pyenv'
 
 # Go
 export GOPATH="$HOME/.go"
@@ -103,7 +102,7 @@ eval "$(mise activate zsh)"
 cd c 2>/dev/null
 
 ptex() {
-   echo $1.tex | entr -s "pdflatex --synctex=1 $1.tex && xdg-open $1.pdf"
+   echo $1.tex | entr -s "pdflatex --synctex=1 $1.tex && open $1.pdf"
 }
 
 # OS-specific
