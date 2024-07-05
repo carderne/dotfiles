@@ -42,6 +42,15 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 # Ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
+# Python
+venv () {
+  python -m venv .venv
+  echo '[env]'                 >  .mise.toml
+  echo '_.python.venv=".venv"' >> .mise.toml
+  mise trust --quiet
+}
+alias pydeps='pip install -r ~/.default-python-packages'
+
 # Find and replace
 rgr() {( set -e
     git status > /dev/null
@@ -50,7 +59,7 @@ rgr() {( set -e
 )}
 
 # Directory browsing
-function t() {
+t () {
   local dir;
   while true; do
     # exit with ^D
@@ -83,7 +92,9 @@ alias v='vi .'
 alias vimdiff='nvim -d'
 
 alias o='open'
+
 alias jup='python -m jupyter lab --port=9999 --notebook-dir ~'
+
 alias rg="\rg --ignore-file ~/.config/ripgrep/ignore"
 alias rgp='rg -tpy'
 alias space='du -h | sort -hr | less'
