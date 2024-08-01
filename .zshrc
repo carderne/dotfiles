@@ -121,6 +121,7 @@ case `uname` in
   Darwin)
   ;;
   Linux)
+    alias trash='gio trash'
     PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}box${PWD/#$HOME/~}%F{reset} '
     rgr() {( set -e
       git status > /dev/null
