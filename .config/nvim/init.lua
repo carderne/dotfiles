@@ -179,7 +179,7 @@ local plugins = {
 	},
 
 	-- Pest/PEG
-	{ "pest-parser/pest.vim" },
+	-- { "pest-parser/pest.vim" },
 
 	-- DAP
 	-- {
@@ -348,7 +348,7 @@ require("mason-lspconfig").setup({
 	ensure_installed = {
 		"tsserver",
 		"pyright",
-		"ruff_lsp",
+		"ruff",
 		"eslint",
 		"bashls",
 		"beancount",
@@ -378,7 +378,7 @@ lsp_zero.format_mapping("<leader>fo", {
 	servers = {
 		["null-ls"] = { "javascript", "typescript", "lua", "go", "json", "typescriptreact", "python" },
 		["rust_analyzer"] = { "rust" },
-		["ruff_lsp"] = { "python" },
+		["ruff"] = { "python" },
 	},
 })
 
