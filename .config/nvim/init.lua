@@ -306,7 +306,7 @@ require("nvim-treesitter.configs").setup({
 		"go",
 		"sql",
 		"bash",
-		"beancount",
+		-- "beancount",
 		"css",
 		"diff",
 		"dockerfile",

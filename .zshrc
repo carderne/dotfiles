@@ -107,7 +107,6 @@ alias k=kubectl
 export GOPATH="$HOME/.go"
 
 # Mise
-eval "$(mise activate zsh)"
 
 # Cd
 cd c 2>/dev/null
@@ -119,8 +118,10 @@ ptex() {
 # OS-specific
 case `uname` in
   Darwin)
+    eval "$(mise activate zsh)"
   ;;
   Linux)
+    eval "$(~/.local/bin/mise activate zsh)"
     alias trash='gio trash'
     PROMPT='%F{green}${vcs_info_msg_0_} %F{blue}box${PWD/#$HOME/~}%F{reset} '
     rgr() {( set -e
