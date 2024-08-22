@@ -45,8 +45,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 # Python
 venv () {
   python -m venv .venv
-  echo '[env]'                 >  .mise.toml
-  echo '_.python.venv=".venv"' >> .mise.toml
+  echo -e "[env]\n_.python.venv='.venv'" > .mise.toml
   mise trust --quiet
 }
 alias pydeps='pip install -r ~/.default-python-packages'
@@ -102,6 +101,8 @@ alias space='du -h | sort -hr | less'
 alias g='git'
 alias gb='git branch --sort=-committerdate --color=always | head -8'
 alias k=kubectl
+
+alias s="kitten ssh"
 
 # Go
 export GOPATH="$HOME/.go"
