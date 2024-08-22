@@ -1,7 +1,6 @@
 [default]
-requires-python = "~= 3.12.2"
-toolchain = "cpython@3.12.2"
-build-system = "pdm"
+requires-python = "~= 3.12.3"
+toolchain = "cpython@3.12.3"
 dependency-operator = "~="
 
 [behavior]
