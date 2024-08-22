@@ -131,7 +131,7 @@ local plugins = {
 	-- LSP-Zero
 	{
 		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
+		branch = "v4.x",
 		dependencies = {
 			-- LSP Support
 			{ "neovim/nvim-lspconfig" },
@@ -208,7 +208,7 @@ local plugins = {
 
 	{ "ggandor/leap.nvim" },
 
-	{ "andythigpen/nvim-coverage" },
+	-- { "andythigpen/nvim-coverage" },
 }
 
 -- -----------------------------------------------------------------------------------------------
@@ -229,7 +229,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(plugins)
 
-require("coverage").setup()
+-- require("coverage").setup()
 
 -- -----------------------------------------------------------------------------------------------
 -- Plugin config
@@ -266,9 +266,9 @@ require("telescope").setup({
 		find_files = {
 			theme = "ivy",
 		},
-    live_grep = {
-      theme = "ivy",
-    },
+		live_grep = {
+			theme = "ivy",
+		},
 	},
 })
 
@@ -278,11 +278,11 @@ local tele_builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, {})
--- vim.keymap.set("n", "<leader>ff", function()
---     tele_builtin.find_files({
---         search_dirs = { vim.fn.expand("%:p:h") }
---     })
--- end, {})
+vim.keymap.set("n", "<leader>ff", function()
+	tele_builtin.find_files({
+		search_dirs = { vim.fn.expand("%:p:h") },
+	})
+end, {})
 
 require("gitsigns").setup({ current_line_blame = true })
 
@@ -333,70 +333,6 @@ vim.opt.foldlevel = 99
 -- -----------------------------------------------------------------------------------------------
 -- LSP stuff
 -- -----------------------------------------------------------------------------------------------
-local lsp_zero = require("lsp-zero").preset({ name = "recommended" })
-lsp_zero.on_attach(function(_, bufnr)
-	local opts = { buffer = bufnr }
-	lsp_zero.default_keymaps(opts)
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-	vim.keymap.set("n", "gd", tele_builtin.lsp_definitions, opts)
-	vim.keymap.set("n", "gr", tele_builtin.lsp_references, opts)
-end)
-
-require("mason").setup({})
-require("mason-lspconfig").setup({
-	-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-	ensure_installed = {
-		"tsserver",
-		"pyright",
-		"ruff",
-		"eslint",
-		"bashls",
-		"beancount",
-		"cssls",
-		"dockerls",
-		"docker_compose_language_service",
-		"gopls",
-		"html",
-		"jsonls",
-		"lua_ls",
-		"rust_analyzer",
-		"sqlls",
-		"terraformls",
-		"yamlls",
-		"pest_ls",
-	},
-	handlers = {
-		lsp_zero.default_setup,
-	},
-})
-
-lsp_zero.format_mapping("<leader>fo", {
-	format_opts = {
-		async = true,
-		timeout_ms = 10000,
-	},
-	servers = {
-		["null-ls"] = { "javascript", "typescript", "lua", "go", "json", "typescriptreact", "python" },
-		["rust_analyzer"] = { "rust" },
-		["ruff"] = { "python" },
-	},
-})
-
-local null_ls = require("null-ls")
-null_ls.setup({
-	sources = {
-		null_ls.builtins.formatting.prettier,
-		null_ls.builtins.formatting.stylua,
-		-- null_ls.builtins.formatting.jq,
-		null_ls.builtins.formatting.gofmt,
-		-- null_ls.builtins.formatting.ruff,
-	},
-})
-require("mason-null-ls").setup({
-	ensure_installed = nil,
-	automatic_installation = true,
-})
-
 local cmp = require("cmp")
 local cmp_format = require("lsp-zero").cmp_format()
 cmp.setup({
@@ -425,6 +361,89 @@ cmp.setup({
 		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = "insert" }),
 		["<C-j>"] = cmp.mapping.select_next_item({ behavior = "insert" }), -- or select
 	}),
+})
+
+local lsp_zero = require("lsp-zero")
+local lsp_attach = function(client, bufnr)
+	local opts = { buffer = bufnr }
+	lsp_zero.default_keymaps(opts)
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+	-- nnoremap <silent> ca <cmd>lua vim.lsp.buf.code_action()<CR>
+	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+	vim.keymap.set("n", "gd", tele_builtin.lsp_definitions, opts)
+	vim.keymap.set("n", "gr", tele_builtin.lsp_references, opts)
+end
+lsp_zero.extend_lspconfig({
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	lsp_attach = lsp_attach,
+	float_border = "rounded",
+	sign_text = true,
+})
+
+require("mason").setup({})
+require("mason-lspconfig").setup({
+	-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+	ensure_installed = {
+		"tsserver",
+		"basedpyright",
+		-- "pyright",
+		"ruff",
+		"eslint",
+		"bashls",
+		-- "beancount",
+		"cssls",
+		"dockerls",
+		"docker_compose_language_service",
+		"gopls",
+		"html",
+		"jsonls",
+		"lua_ls",
+		"rust_analyzer",
+		"sqlls",
+		"terraformls",
+		"yamlls",
+		"pest_ls",
+	},
+	handlers = {
+		lsp_zero.default_setup,
+	},
+})
+
+require("lspconfig").rust_analyzer.setup({
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+		},
+	},
+})
+
+lsp_zero.format_mapping("<leader>fo", {
+	format_opts = {
+		async = true,
+		timeout_ms = 10000,
+	},
+	servers = {
+		["null-ls"] = { "javascript", "typescript", "lua", "go", "json", "typescriptreact" },
+		["rust_analyzer"] = { "rust" },
+		["ruff"] = { "python" },
+	},
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+	sources = {
+		null_ls.builtins.formatting.prettier,
+		null_ls.builtins.formatting.stylua,
+		-- null_ls.builtins.formatting.jq,
+		null_ls.builtins.formatting.gofmt,
+		-- null_ls.builtins.formatting.ruff,
+	},
+})
+require("mason-null-ls").setup({
+	ensure_installed = nil,
+	automatic_installation = true,
 })
 
 -- -----------------------------------------------------------------------------------------------
