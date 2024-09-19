@@ -126,6 +126,7 @@ ptex() {
 case `uname` in
   Darwin)
     eval "$(mise activate zsh)"
+    source "$HOME/.cargo/env"
   ;;
   Linux)
     eval "$(~/.local/bin/mise activate zsh)"
@@ -139,5 +140,3 @@ case `uname` in
     alias fd=fdfind
   ;;
 esac
-
-. "$HOME/.cargo/env"
