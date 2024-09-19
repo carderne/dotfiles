@@ -384,7 +384,8 @@ require("mason").setup({})
 require("mason-lspconfig").setup({
 	-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 	ensure_installed = {
-		"tsserver",
+		-- "tsserver",
+		-- "ts_ls",
 		"basedpyright",
 		-- "pyright",
 		"ruff",
@@ -408,6 +409,16 @@ require("mason-lspconfig").setup({
 		lsp_zero.default_setup,
 	},
 })
+-- require("mason-lspconfig").setup_handlers({
+-- 	function(server_name) -- default handler (optional)
+-- 		-- https://github.com/neovim/nvim-lspconfig/pull/3232
+--     server_name = server_name == 'tsserver' and 'ts_ls' or server_name
+-- 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- 		require("lspconfig")[server_name].setup({
+-- 			capabilities = capabilities,
+-- 		})
+-- 	end,
+-- })
 
 require("lspconfig").rust_analyzer.setup({
 	settings = {

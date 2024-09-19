@@ -44,9 +44,15 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 
 # Python
 venv () {
+  set -e
   python -m venv .venv
   echo -e "[env]\n_.python.venv='.venv'" > .mise.toml
   mise trust --quiet
+}
+mkvenv () {
+  mkdir $1
+  cd $1
+  venv
 }
 alias pydeps='pip install -r ~/.default-python-packages'
 
@@ -133,3 +139,5 @@ case `uname` in
     alias fd=fdfind
   ;;
 esac
+
+. "$HOME/.cargo/env"
