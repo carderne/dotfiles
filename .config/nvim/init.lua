@@ -273,16 +273,16 @@ require("telescope").setup({
 })
 
 local tele_builtin = require("telescope.builtin")
--- vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
+vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
 -- vim.keymap.set("n", "<leader>ff", tele_builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, {})
-vim.keymap.set("n", "<leader>ff", function()
-	tele_builtin.find_files({
-		search_dirs = { vim.fn.expand("%:p:h") },
-	})
-end, {})
+-- vim.keymap.set("n", "<leader>ff", function()
+-- 	tele_builtin.find_files({
+-- 		search_dirs = { vim.fn.expand("%:p:h") },
+-- 	})
+-- end, {})
 
 require("gitsigns").setup({ current_line_blame = true })
 
@@ -385,7 +385,7 @@ require("mason-lspconfig").setup({
 	-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 	ensure_installed = {
 		-- "tsserver",
-		-- "ts_ls",
+		"ts_ls",
 		"basedpyright",
 		-- "pyright",
 		"ruff",
