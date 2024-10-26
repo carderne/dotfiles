@@ -1,6 +1,5 @@
-[user]
-	name = Chris Arderne
-  email = chris@rdrn.me
+[include]
+  path = personal
 
 [core]
 	editor = nvim

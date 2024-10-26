@@ -95,6 +95,7 @@ alias gb='git branch --sort=-committerdate --color=always | head -8'
 alias k=kubectl
 
 alias s="kitten ssh"
+alias python="python3"
 
 # Go
 export GOPATH="$HOME/.go"

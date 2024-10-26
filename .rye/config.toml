@@ -1,8 +1,0 @@
-[default]
-requires-python = "~= 3.12.3"
-toolchain = "cpython@3.12.3"
-dependency-operator = "~="
-
-[behavior]
-global-python = false
-use-uv = true
