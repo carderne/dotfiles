@@ -105,6 +105,19 @@ vim.keymap.set("n", "<C-w>j", ":resize -15<CR>")
 vim.keymap.set("n", "<C-w>h", ":vertical:resize -15<CR>")
 vim.keymap.set("n", "<C-w>l", ":vertical:resize +15<CR>")
 
+function ToggleBackgroundAndTheme()
+	local current_background = vim.o.background
+	if current_background == "light" then
+		vim.o.background = "dark"
+		vim.cmd("!kitten themes --reload-in=all Gruvbox Dark")
+	else
+		vim.o.background = "light"
+		vim.cmd("!kitten themes --reload-in=all Gruvbox Light")
+	end
+end
+
+vim.keymap.set("n", "<D-d>", ":lua ToggleBackgroundAndTheme()<CR>", { noremap = true, silent = true })
+
 -- -----------------------------------------------------------------------------------------------
 -- Plugin list
 -- -----------------------------------------------------------------------------------------------
@@ -403,7 +416,7 @@ require("mason-lspconfig").setup({
 		"sqlls",
 		"terraformls",
 		"yamlls",
-		"pest_ls",
+		-- "pest_ls",
 	},
 	handlers = {
 		lsp_zero.default_setup,
