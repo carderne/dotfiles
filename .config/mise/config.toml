@@ -1,7 +1,0 @@
-[tools]
-node = "20"
-ruby = "3.3"
-python = "3.12"
-
-[settings]
-legacy_version_file = false
