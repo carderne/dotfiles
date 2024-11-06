@@ -18,12 +18,14 @@ setopt hist_ignore_space
 path+=('/opt/homebrew/opt/libpq/bin')
 path+=('/opt/homebrew/opt/postgresql@15/bin')
 ## Cargo
-path+=('/home/chris/.cargo/bin')
+path+=("$HOME/.cargo/bin")
 ## Go
 path+=('/usr/local/go/bin')
+## pipx
+path+=("$HOME/.local/bin")
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # Prompt
 autoload -Uz vcs_info
@@ -100,7 +102,8 @@ alias python="python3"
 # Go
 export GOPATH="$HOME/.go"
 
-# Mise
+# Poetry
+alias pr="poetry run"
 
 # Cd
 cd c 2>/dev/null
