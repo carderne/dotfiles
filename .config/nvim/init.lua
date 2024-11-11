@@ -18,7 +18,8 @@ vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 -- Display settings
 vim.opt.termguicolors = true
-vim.opt.background = "light"
+local theme = io.open(vim.fn.expand("~/.config/kitty/theme"), "r"):read("*all")
+vim.o.background = theme:find("dark") and "dark" or "light"
 
 -- scroll a bit extra horizontally and vertically when at the end/bottom
 vim.opt.cursorline = true
@@ -109,10 +110,12 @@ function ToggleBackgroundAndTheme()
 	local current_background = vim.o.background
 	if current_background == "light" then
 		vim.o.background = "dark"
-		vim.cmd("!kitten themes --reload-in=all Gruvbox Dark")
+		vim.cmd("silent! !kitten themes --reload-in=all --config-file-name=themes.conf Solarized Dark")
+		vim.cmd("silent! !echo dark > ~/.config/kitty/theme")
 	else
 		vim.o.background = "light"
-		vim.cmd("!kitten themes --reload-in=all Gruvbox Light")
+		vim.cmd("silent! !kitten themes --reload-in=all --config-file-name=themes.conf Solarized Light")
+		vim.cmd("silent! !echo light > ~/.config/kitty/theme")
 	end
 end
 
@@ -247,7 +250,7 @@ require("lazy").setup(plugins)
 -- -----------------------------------------------------------------------------------------------
 -- Plugin config
 -- -----------------------------------------------------------------------------------------------
-vim.cmd("colorscheme gruvbox")
+vim.cmd.colorscheme "gruvbox"
 
 require("nvim-tree").setup({
 	filters = {
