@@ -135,6 +135,31 @@ local plugins = {
 		lazy = true,
 	},
 
+  -- avante
+  -- {
+  --   "yetone/avante.nvim",
+  --   event = "VeryLazy",
+  --   lazy = false,
+  --   opts = {
+  --     -- add any opts here
+  --     provider = "openai",
+  --     auto_suggestions_provider = "openai"
+  --   },
+  --   build = "make",
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --     {
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = { file_types = { "markdown", "Avante" } },
+  --       ft = { "markdown", "Avante" },
+  --     },
+  --   },
+  -- },
+
 	-- Pretty indentation lines
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl" },
 
@@ -181,7 +206,7 @@ local plugins = {
 		version = nil,
 		build = ":TSUpdate",
 	},
-	{ "nvim-treesitter/nvim-treesitter-context" },
+	-- { "nvim-treesitter/nvim-treesitter-context" },
 
 	-- Telescope
 	{
@@ -212,15 +237,15 @@ local plugins = {
 	{ "lewis6991/gitsigns.nvim" },
 
 	-- NeoGit
-	-- {
-	-- 	"NeogitOrg/neogit",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-telescope/telescope.nvim",
-	-- 		"sindrets/diffview.nvim", -- optional - Diff integration
-	-- 	},
-	-- 	config = true,
-	-- },
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"sindrets/diffview.nvim", -- optional - Diff integration
+		},
+		config = true,
+	},
 
 	{ "ggandor/leap.nvim" },
 
@@ -290,15 +315,10 @@ require("telescope").setup({
 
 local tele_builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
--- vim.keymap.set("n", "<leader>ff", tele_builtin.find_files, {})
+vim.keymap.set("n", "<leader>fa", tele_builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, {})
--- vim.keymap.set("n", "<leader>ff", function()
--- 	tele_builtin.find_files({
--- 		search_dirs = { vim.fn.expand("%:p:h") },
--- 	})
--- end, {})
 
 require("gitsigns").setup({ current_line_blame = true })
 
