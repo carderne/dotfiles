@@ -105,6 +105,9 @@ export GOPATH="$HOME/.go"
 # Poetry
 alias pr="poetry run"
 
+# uv
+alias uvs="uv sync --all-packages"
+
 # Cd
 cd c 2>/dev/null
 
