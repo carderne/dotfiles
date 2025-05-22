@@ -202,7 +202,14 @@ local plugins = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
       signature = { enabled = true },
-      fuzzy = { implementation = "prefer_rust_with_warning" }
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+      completion = {
+        accept = {
+          auto_brackets = {
+            enabled = false,
+          },
+        },
+      },
     },
     opts_extend = { "sources.default" }
   },
@@ -235,6 +242,8 @@ local plugins = {
   },
 
   { "ggandor/leap.nvim" },
+
+  { "chentoast/marks.nvim", event = "VeryLazy", opts = {} },
 
   { "rest-nvim/rest.nvim" },
   rocks = {
@@ -305,6 +314,15 @@ vim.keymap.set("n", "<leader>fa", tele_builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, {})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then return end
+    local opts = { buffer = args.buf }
+    vim.keymap.set("n", "grr", tele_builtin.lsp_references, opts)
+  end,
+})
 
 require("gitsigns").setup({ current_line_blame = true })
 
