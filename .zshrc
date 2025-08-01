@@ -47,7 +47,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 # Find and replace
 rgr() {( set -e
     git status > /dev/null
-    files=$(rg -l "$1")
+    files=$(rg -ls "$1")
     echo $files | xargs sed -i '' "s|$1|$2|g"
 )}
 
@@ -95,6 +95,7 @@ alias space='du -h | sort -hr | less'
 alias g='git'
 alias gb='git branch --sort=-committerdate --color=always | head -8'
 alias k=kubectl
+alias p=pnpm
 
 alias s="kitten ssh"
 alias python="python3"

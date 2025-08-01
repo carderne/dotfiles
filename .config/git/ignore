@@ -2,3 +2,5 @@
 .python-version
 pyrightconfig.json
 .mise.toml
+
+**/.claude/settings.local.json

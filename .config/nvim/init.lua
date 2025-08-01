@@ -377,9 +377,11 @@ require("mason").setup({})
 require("mason-lspconfig").setup({
   -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
   ensure_installed = {
-    "ts_ls",
-    "basedpyright",
-    -- "pyright",
+    -- "ts_ls",
+    "vtsls",
+    -- "biome",
+    -- "basedpyright",
+    "pyright",
     "ruff",
     "eslint",
     "bashls",
